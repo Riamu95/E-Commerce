@@ -13,6 +13,7 @@ class Directory extends React.Component {
                   title: 'hats',
                   imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
                   id: 1,
+                  url : 'hats',
                   size : 'medium',
                   linkUrl: 'shop/hats'
                 },
@@ -20,6 +21,7 @@ class Directory extends React.Component {
                   title: 'jackets',
                   imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
                   id: 2,
+                  url : 'jackets',
                   size : 'medium',
                   linkUrl: 'shop/jackets'
                 },
@@ -27,6 +29,7 @@ class Directory extends React.Component {
                   title: 'sneakers',
                   imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
                   id: 3,
+                  url : 'sneakers',
                   size : 'medium',
                   linkUrl: 'shop/sneakers'
                 },
@@ -34,6 +37,7 @@ class Directory extends React.Component {
                   title: 'womens',
                   imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
                   size: 'large',
+                  url : 'womens',
                   id: 4,
                   linkUrl: 'shop/womens'
                 },
@@ -41,6 +45,7 @@ class Directory extends React.Component {
                   title: 'mens',
                   imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
                   size: 'large',
+                  url : 'mens',
                   id: 5,
                   linkUrl: 'shop/mens'
                 }
@@ -53,8 +58,8 @@ class Directory extends React.Component {
         return (
             <div className="directory-menu">
                 {
-                    this.state.sections.map(({title, imageUrl, id, size }) => (
-                        <MenuItem key = { id } image = { imageUrl } title = {title} size = {size}  />                  
+                    this.state.sections.map(({ id , ...properties }) => (
+                        <MenuItem key = { id } image = { properties.imageUrl } title = {properties.title} size = { properties.size} url = { properties.url } />                  
                     ))
                 }
             </div>
