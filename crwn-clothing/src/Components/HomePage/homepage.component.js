@@ -1,11 +1,11 @@
 import React from 'react';
 import "./homepage.styles.scss";
-import Directory from '../Directory/Directory.component';
+import Shop from '../Shop/Shop.component.js';
 
 export const HomePage = () =>
 (
     <div className='homepage'>
-        <Directory />
+        <Shop />
     </div>
 );
 
