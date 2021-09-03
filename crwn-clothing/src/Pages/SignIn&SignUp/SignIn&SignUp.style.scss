@@ -1,0 +1,17 @@
+.signInsignUp {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+
+    .signIn {
+        padding-right: 100px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .signUp {
+        display: flex;
+        flex-direction: column;
+    }
+}

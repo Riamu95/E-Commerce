@@ -1,7 +1,6 @@
 import React from 'react';
-//import {Route, Switch} from 'react-router-dom';
 import shopData from './Shop_Data';
-import ColllectionPreview from '../Collection-Preview/CollectionPreview.component.style';
+import ColllectionPreview from '../../Components/Collection-Preview/CollectionPreview.component.js';
 
 class Shop extends React.Component 
 {
