@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import  Shop from './Pages/Shop/Shop.component';
 import Header from './Components/Header/Header.component';
 import SignInAndSignUp from './Pages/SignInAndSignUp/SignInAndSignUp.component';
-import { firestore , createUserProfileDocument, auth } from './firebase/firebase.utils';
+import {  createUserProfileDocument, auth } from './firebase/firebase.utils';
 
 class  App extends Component
 {
