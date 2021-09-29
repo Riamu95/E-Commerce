@@ -19,7 +19,7 @@ const Header = ({currentUser, hidden}) =>
             </Link>
             <div className="options">
                 {
-                    currentUser && path == '/shop' ? null :  <Link className="option" to="/shop"> SHOP </Link>
+                    currentUser && path === '/shop' ? null :  <Link className="option" to="/shop"> SHOP </Link>
                 }
                 <Link className="option" to="/contact"> CONTACT </Link>
                 {
