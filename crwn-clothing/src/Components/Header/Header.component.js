@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.style.scss';
 import { ReactComponent as Logo} from '../../Assets/crown.svg';
+import  CartIcon from '../Cart-icon/Cart-icon.component';
 import { auth } from '../../firebase/firebase.utils';
 import { connect } from 'react-redux';
 
@@ -25,7 +26,8 @@ const Header = ({ currentUser }) =>
                 }
 
                 {
-                    currentUser ? <Link className="cart" to="/cart"> CART </Link> : null
+                    currentUser ?   
+                    <CartIcon/> : null
                 }
 
             </div>
