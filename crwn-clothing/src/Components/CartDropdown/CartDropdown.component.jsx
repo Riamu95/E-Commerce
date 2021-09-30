@@ -1,15 +1,16 @@
 import Button from '../Button/Button.component';
 import './CartDropdown.styles.scss';
 import { connect  } from 'react-redux';
+import CartItem   from '../Cart-Item/Cart-Item.component';
 
 const CartDropdown = ({items}) => 
 {
     return(
         <div className='cart-dropdown'>
            <div className='cart-items'/>
-         <span> {console.log('items', items)} </span>
-         <span> {items.price} </span>
-         <span> {items.name} </span>
+            {
+                items.map( item => <CartItem key={item.id} item={item}/>)
+            }
             <Button> GO TO CHECKOUT </Button>
         </div>
     );
