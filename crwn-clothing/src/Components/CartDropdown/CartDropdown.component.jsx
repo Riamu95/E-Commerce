@@ -4,11 +4,10 @@ import { connect  } from 'react-redux';
 
 const CartDropdown = ({items}) => 
 {
-    console.log('hii', items.name);
     return(
         <div className='cart-dropdown'>
            <div className='cart-items'/>
-         <span> {items.name} </span>
+         <span> {console.log('items', items)} </span>
          <span> {items.price} </span>
          <span> {items.name} </span>
             <Button> GO TO CHECKOUT </Button>
