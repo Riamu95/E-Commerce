@@ -7,11 +7,12 @@ const CartDropdown = ({items}) =>
 {
     return(
         <div className='cart-dropdown'>
-           <div className='cart-items'/>
+           <div className='cart-items'>
             {
                 items.map( item => <CartItem key={item.id} item={item}/>)
             }
-            <Button> GO TO CHECKOUT </Button>
+            </div>
+            <Button>CHECKOUT</Button>
         </div>
     );
 };
