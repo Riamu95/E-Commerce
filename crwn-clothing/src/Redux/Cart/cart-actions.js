@@ -10,3 +10,9 @@ export const addCartItem = (data) =>
     type : CartActionTypes.addCartItem,
     payload : data
 });
+
+export const removeCartItem = (data) => 
+({
+    type : CartActionTypes.removeCartItem,
+    payload : data
+});

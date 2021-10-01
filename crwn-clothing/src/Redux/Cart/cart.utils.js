@@ -11,3 +11,14 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
  
     return [ ...cartItems, { ...cartItemToAdd, quantity: 1}];
 }
+
+
+export const removeItemFromCart = (cartItems, removableItem) => {
+    console.log('items',cartItems)
+    console.log('items',cartItems)
+    const existingCartItem = cartItems.find( cartItem => cartItem.id === removableItem);
+
+    if(existingCartItem) { 
+        return cartItems.filter(item => item.id !== removableItem);
+    }
+}
