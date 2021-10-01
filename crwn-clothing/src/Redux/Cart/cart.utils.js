@@ -14,11 +14,24 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
 
 
 export const removeItemFromCart = (cartItems, removableItem) => {
-    console.log('items',cartItems)
-    console.log('items',cartItems)
     const existingCartItem = cartItems.find( cartItem => cartItem.id === removableItem);
 
     if(existingCartItem) { 
         return cartItems.filter(item => item.id !== removableItem);
     }
 }
+
+export const decrementItemQuantity = (cartItems, cartItemTodecrement) => {
+    const existingCartItem = cartItems.find( cartItem => cartItem.id === cartItemTodecrement.id);
+
+    if(existingCartItem) { 
+        return cartItems.map(cartItem =>
+            cartItem.id === cartItemTodecrement.id ? 
+            { ...cartItem, quantity: cartItem.quantity - 1}
+            : cartItem
+            )
+    }
+}
+
+
+

@@ -16,3 +16,9 @@ export const removeCartItem = (data) =>
     type : CartActionTypes.removeCartItem,
     payload : data
 });
+
+export const decrementCartQuantity = (data) => 
+({
+    type : CartActionTypes.decrementCartItem,
+    payload : data
+});

@@ -1,5 +1,5 @@
 import { CartActionTypes } from "./cartActionType";
-import { addItemToCart, removeItemFromCart } from "./cart.utils";
+import { addItemToCart, removeItemFromCart, decrementItemQuantity } from "./cart.utils";
 const INITIAL_STATE = {
     hidden : true,
     cartItems : []
@@ -25,6 +25,12 @@ const cartReducer = (state = INITIAL_STATE, action) => {
            return {
                ...state,
                cartItems : removeItemFromCart(state.cartItems, action.payload)
+           }
+
+           case CartActionTypes.decrementCartItem : 
+           return {
+               ...state,
+               cartItems : decrementItemQuantity(state.cartItems, action.payload)
            }
 
         default:
