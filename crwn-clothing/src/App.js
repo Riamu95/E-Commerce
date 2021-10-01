@@ -11,6 +11,7 @@ import { setCurrentUser } from './Redux/User/user-actions'
 import { selectCurrentUser } from './Redux/User/user.selector';
 import CheckoutPage from './Pages/Checkout/Checkout.component';
 
+
 class  App extends Component
 {
   unsubscribeFromAuth = null;
