@@ -2,7 +2,8 @@ import React from "react";
 import './directory.styles.scss';
 import MenuItem from '../MenuItem/MenuItem.component';
 import { connect } from 'react-redux';
-import { selectCollections } from "../../Redux/Collections/collection.selector";
+import { selectCollectionsArray } from "../../Redux/Collections/collection.selector";
+
 const  Directory = ({ collection }) =>
 {
     return (
@@ -18,7 +19,7 @@ const  Directory = ({ collection }) =>
 
 const mapStateToProps = state => 
 ({
-    collection : selectCollections(state)
+    collection : selectCollectionsArray(state)
 });
 
 export default connect(mapStateToProps, null)(Directory);
