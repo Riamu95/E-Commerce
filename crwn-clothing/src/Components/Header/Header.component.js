@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 import CartDropdownComponent from '../CartDropdown/CartDropdown.component';
 import { selectCurrentUser } from '../../Redux/User/user.selector';
 import { selectCartHidden } from '../../Redux/Cart/cart.selectors';
+
 const Header = ({currentUser, hidden}) => 
 {
     const path =  useLocation().pathname;
-    console.log({currentUser, hidden});
     return(
         
         <div className="Header">

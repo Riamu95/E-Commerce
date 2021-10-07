@@ -8,3 +8,5 @@ export const selectCollections = createSelector([selectCollection], collection =
 export const selectCategoryCollections = createSelector([selectCollection], collections => {
     return Object.keys(collections).map( collection => collections[collection]);
 });
+
+export const selectCollectionsPreview = createSelector([selectCollections], collections =>  Object.keys(collections).map( collection => collections[collection]));
