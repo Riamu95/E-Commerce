@@ -1,18 +1,19 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { selectCollectionsArray } from "../../Redux/Collections/collection.selector";
+import { selectCollections } from "../../Redux/Collections/collection.selector";
 import ColllectionPreview from '../Collection-Preview/CollectionPreview.component';
 import './CollectionsOverview.styles.scss';
 
 const CollectionsOverview = ({Collections}) => 
 {
+    console.log(Collections);
     return(
         <div className = "collections">
         <h1>COLLECTIONS</h1>
         {
-             Collections.map( collection => (
-                <div className='collection' key={collection.id}> 
-                    <ColllectionPreview title={collection.title} collectionCategory={collection}/>
+            Object.keys(Collections).map( collection => (
+                <div className='collection' key={Collections[collection].id}> 
+                    <ColllectionPreview  collectionCategory={Collections[collection]}/>
                 </div>
             ))
         }
@@ -22,7 +23,7 @@ const CollectionsOverview = ({Collections}) =>
 
 const mapStateToProps = state => {
     return {
-        Collections : selectCollectionsArray(state)
+        Collections : selectCollections(state)
     };
 };
 

@@ -2,16 +2,16 @@ import React from "react";
 import './directory.styles.scss';
 import MenuItem from '../MenuItem/MenuItem.component';
 import { connect } from 'react-redux';
-import { selectCollectionsArray } from "../../Redux/Collections/collection.selector";
+import { selectCategoryCollections } from "../../Redux/Collections/collection.selector";
 
 const  Directory = ({ collection }) =>
 {
+    const collections = collection[0];
+ 
     return (
         <div className="directory-menu">
             {
-                collection.map(({ id , ...properties }) => (
-                    <MenuItem key = { id } image = { properties.imageUrl } title = {properties.title} size = { properties.size} url = { properties.url } />                  
-                ))
+                Object.keys(collections).map( collection => <MenuItem key = { collections[collection].id } image = {  collections[collection].imageUrl } title = { collections[collection].title} size = {  collections[collection].size} url = {  collections[collection].url } />)               
             }
         </div>
     );
@@ -19,7 +19,7 @@ const  Directory = ({ collection }) =>
 
 const mapStateToProps = state => 
 ({
-    collection : selectCollectionsArray(state)
+    collection : selectCategoryCollections(state)
 });
 
 export default connect(mapStateToProps, null)(Directory);
