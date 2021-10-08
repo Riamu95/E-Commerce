@@ -11,10 +11,13 @@ const CollectionsPage = ({match, shopItems}) =>
     return(     
         <div className='collections-page'>
             <h2 className='title'> { title.toUpperCase()} </h2>
+            <div className='items'>
                 {
+                   
                     items.map( item => 
                         <CollectionItem  key={item.id} {...item} />)
                 }
+             </div>    
         </div>
     );
 };
