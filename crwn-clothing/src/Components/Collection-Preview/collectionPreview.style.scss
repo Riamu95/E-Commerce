@@ -3,6 +3,12 @@
     flex-direction: column;
     margin-bottom: 30px;
 
+   &:hover {
+     .arrow {
+       opacity: 100%;
+     }
+   }
+
    
 
     .title {
@@ -17,5 +23,13 @@
     .preview {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+    }
+
+    .arrow {
+      opacity: 0%;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
