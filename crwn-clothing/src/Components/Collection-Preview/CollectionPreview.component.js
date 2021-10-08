@@ -15,11 +15,11 @@ class  ColllectionPreview extends React.Component
         this.state = {
             startIndex : 0,
             endIndex : 3,
-            maxItems : props.shopItems.items.length -1
+            maxItems : props.shopItems.items.length -1,
+            items : this.props.shopItems.items,
+            previewCount  : 4,
+            title : this.props.collectionCategory.title
         };
-        this.state.previewCount = 4;
-        this.title = this.props.collectionCategory.title;
-        this.items = this.props.shopItems.items;
     }
 
     onArrowClick = (direction) => {
@@ -46,11 +46,11 @@ class  ColllectionPreview extends React.Component
     {
         return(
             <div className="collection-preview"> 
-                <h2  onClick={ () => this.props.history.push(`${this.props.match.url}/${this.title}`)} className='title'>{this.title.toUpperCase()}</h2>
+                <h2  onClick={ () => this.props.history.push(`${this.props.match.url}/${this.state.title}`)} className='title'>{this.state.title.toUpperCase()}</h2>
                 <div className="preview">
                     <LeftArrowLogo onClick={() => this.onArrowClick('left')} className="arrow"/>
                    {                                          //render only the indexs we have chosen max of 4
-                        this.items.filter((item, idx) => (idx >= this.state.startIndex && idx <= this.state.endIndex) )
+                        this.state.items.filter((item, idx) => (idx >= this.state.startIndex && idx <= this.state.endIndex) )
                         .map((item) => (
                             <CollectionItem key={item.id} {...item} /> 
                         ))

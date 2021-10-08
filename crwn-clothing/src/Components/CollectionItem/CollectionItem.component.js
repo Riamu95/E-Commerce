@@ -3,11 +3,10 @@ import './CollectionItem.styles.scss'
 import Button from '../Button/Button.component';
 import { connect } from 'react-redux';
 import { addCartItem } from '../../Redux/Cart/cart-actions';
-
-const CollectionItem = ({addCartItem, imageUrl, name,price, id}) => 
-{
-    return(
-     
+import { withRouter } from 'react-router';
+const CollectionItem = ({imageUrl, name,price, category, id, match,history}) => 
+{  
+    return( 
         <div className='collection-item'>
             <div className='image' style={{
                 backgroundImage : `url(${imageUrl})`
@@ -16,7 +15,7 @@ const CollectionItem = ({addCartItem, imageUrl, name,price, id}) =>
                 <span className='name'>{name}</span>
                 <span className='price'>{price}</span>
             </div>
-            <Button onClick={ () => addCartItem({ id : id, name : name,  imageUrl : imageUrl, price : price}) } inverted > Add to Cart </Button>
+          <Button onClick= {() =>  match.params?.collectionId ? history.push(`${match.url}/${id}`) :  history.push(`${match.url}/${category}/${id}`)} inverted > View Item </Button>     
         </div>
     );
 }
@@ -25,4 +24,4 @@ const mapDispatchToProps = (dispatch) => ({
     addCartItem : (data) => dispatch(addCartItem(data))
 });
 
-export default connect(null, mapDispatchToProps)(CollectionItem);
+export default withRouter(connect(null, mapDispatchToProps)(CollectionItem));

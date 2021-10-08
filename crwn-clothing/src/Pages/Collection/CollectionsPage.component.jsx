@@ -7,7 +7,6 @@ import './CollectionsPage.styles.scss';
 const CollectionsPage = ({match, shopItems}) => 
 { 
     const { title, items} = shopItems;
-
     return(     
         <div className='collections-page'>
             <h2 className='title'> { title.toUpperCase()} </h2>

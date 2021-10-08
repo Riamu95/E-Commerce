@@ -12,3 +12,5 @@ export const selectCollectionItems = category =>
             return Object.assign({}, collections[category]);
         }
 });
+
+export const getItem = (categoryID, itemID) => createSelector([selectCollectionItems(categoryID)], collection => collection.items.filter( item => item.id === itemID));
