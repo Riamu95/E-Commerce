@@ -4,13 +4,15 @@ import { removeCartItem, addCartItem, decrementCartQuantity } from "../../Redux/
 import { connect } from "react-redux";
 const CheckoutItem = ({item , removeItem, IncrementItemQuantity, decrementItemQuantity}) => 
 {
-    const { imageUrl, name, quantity, price, id} = item;
+    const { imageUrl, name, quantity, price, id, size} = item;
+
     return(
         <div className='checkout-item'>
             <div className='image-container'>
                 <img src={imageUrl} alt='item'/>
             </div>
             <span className="name">{name}</span>
+            <span className="size">{size}</span>
             <span className="quantity">
                 <div onClick={() => quantity > 1 ? decrementItemQuantity(item) : removeItem(id) } className='arrow'>&#10094;</div>
                 {quantity}
