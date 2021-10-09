@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { selectCartItems, selectCartPrice } from '../../Redux/Cart/cart.selectors';
 import CheckoutItem from '../../Components/Checkout-Item/Checkout-Item.component';
+import StripeButton from '../../Components/StripeButton/StripeButton.component'
 import '../Checkout/Checkout.styles.scss';
 
 
@@ -35,6 +36,14 @@ const CheckoutPage = ({items, cartPrice}) =>
                 <div className='total'>
                     <span>Total : ${cartPrice}</span>
                 </div>
+                <div className='test'>
+                    *Please use the following test card details for payments*
+                    <br/>
+                    Card Number : 4234 4234 4234 4234 EXP : 02/27 CVC : 123
+                </div>
+                <div className='button'>
+                    <StripeButton price={cartPrice}/>
+                </div>
             </div>
         );
 
@@ -46,8 +55,4 @@ const mapStateToProps = state => ({
     cartPrice : selectCartPrice(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-
-});
-
-export default connect(mapStateToProps,mapDispatchToProps)(CheckoutPage);
+export default connect(mapStateToProps,null)(CheckoutPage);
