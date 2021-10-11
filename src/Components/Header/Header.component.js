@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import './Header.style.scss';
+import { HeaderContainer, LogoContainer, Options, Option, LogoDiv } from './Header.styles';
 import { ReactComponent as Logo} from '../../Assets/crown.svg';
 import  CartIcon from '../Cart-icon/Cart-icon.component';
 import { auth } from '../../firebase/firebase.utils';
@@ -14,18 +14,18 @@ const Header = ({currentUser, hidden}) =>
     const path =  useLocation().pathname;
     return(
         
-        <div className="Header">
-            <Link e="logo-container" to="/">
+        <HeaderContainer>
+            <LogoContainer to="/">
                     <Logo className="logo" />
-            </Link>
-            <div className="options">
+            </LogoContainer>
+           <Options>
                 {
-                    currentUser && path === '/shop' ? null :  <Link className="option" to="/shop"> SHOP </Link>
+                    currentUser && path === '/shop' ? null :  <Option to="/shop"> SHOP </Option>
                 }
-                <Link className="option" to="/contact"> CONTACT </Link>
+                <Option to="/contact"> CONTACT </Option>
                 {
-                    currentUser ? <div className="option" onClick={() => auth.signOut()} to="/shop"> SIGN OUT </div> : 
-                    <Link className="option" to="/signIn"> SIGN IN </Link>
+                    currentUser ? <Option as='div' onClick={() => auth.signOut()} to="/shop"> SIGN OUT </Option> : 
+                    <Option to="/signIn"> SIGN IN </Option>
                 }
 
                 {
@@ -33,11 +33,11 @@ const Header = ({currentUser, hidden}) =>
                     <CartIcon/> : null
                 }
 
-            </div>
+            </Options>
                 {
                     hidden ?  null : <CartDropdownComponent/>
                 }
-        </div>
+       </HeaderContainer>
     );
 }
 

@@ -1,11 +1,13 @@
 import React from 'react';
-import './collectionPreview.style.scss'
 import CollectionItem from '../CollectionItem/CollectionItem.component';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'; 
 import {selectCollectionItems} from '../../Redux/Shop/shop.selector';
 import { ReactComponent as LeftArrowLogo} from '../../Assets/leftArrow.svg';
 import { ReactComponent as RightArrowLogo} from '../../Assets/rightArrow.svg';
+import { CollectionPreviewContainer, TitleContainer , PreviewContainer, LeftArrowContainer, RightArrowContainer} from './Collection-Preview.styles';
+
+export  {LeftArrowLogo, RightArrowLogo};
 
 class  ColllectionPreview extends React.Component
 {
@@ -45,19 +47,19 @@ class  ColllectionPreview extends React.Component
     render()
     {
         return(
-            <div className="collection-preview"> 
-                <h2  onClick={ () => this.props.history.push(`${this.props.match.url}/${this.state.title}`)} className='title'>{this.state.title.toUpperCase()}</h2>
-                <div className="preview">
-                    <LeftArrowLogo onClick={() => this.onArrowClick('left')} className="arrow"/>
+            <CollectionPreviewContainer> 
+                <TitleContainer  onClick={ () => this.props.history.push(`${this.props.match.url}/${this.state.title}`)}> {this.state.title.toUpperCase()}</TitleContainer>
+                <PreviewContainer>
+                    <LeftArrowContainer onClick={() => this.onArrowClick('left')}/>
                    {                                          //render only the indexs we have chosen max of 4
                         this.state.items.filter((item, idx) => (idx >= this.state.startIndex && idx <= this.state.endIndex) )
                         .map((item) => (
                             <CollectionItem key={item.id} {...item} /> 
                         ))
                     }
-                    <RightArrowLogo onClick={() => this.onArrowClick('right')} className="arrow"/>
-                </div>
-            </div>
+                    <RightArrowContainer onClick={() => this.onArrowClick('right')}/>
+                </PreviewContainer>
+            </CollectionPreviewContainer>
         );
     }
 }

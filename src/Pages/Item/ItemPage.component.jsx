@@ -27,7 +27,6 @@ class ItemPage extends React.Component
 
     render()
     {
-        console.log(this.imageUrl);
         return(
             <div className='item'>
 
