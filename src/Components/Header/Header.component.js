@@ -8,10 +8,18 @@ import { connect } from 'react-redux';
 import CartDropdownComponent from '../CartDropdown/CartDropdown.component';
 import { selectCurrentUser } from '../../Redux/User/user.selector';
 import { selectCartHidden } from '../../Redux/Cart/cart.selectors';
+import { setCartHidden } from '../../Redux/Cart/cart-actions';
 
-const Header = ({currentUser, hidden}) => 
+const Header = ({currentUser, hidden,hideCart}) => 
 {
     const path =  useLocation().pathname;
+
+    const signOut = () => 
+    {
+        hideCart();
+        auth.signOut();
+    }
+
     return(
         
         <HeaderContainer>
@@ -24,7 +32,7 @@ const Header = ({currentUser, hidden}) =>
                 }
                 <Option to="/contact"> CONTACT </Option>
                 {
-                    currentUser ? <Option as='div' onClick={() => auth.signOut()} to="/shop"> SIGN OUT </Option> : 
+                    currentUser ? <Option as='div' onClick={() => signOut() } to="/shop"> SIGN OUT </Option> : 
                     <Option to="/signIn"> SIGN IN </Option>
                 }
 
@@ -44,6 +52,10 @@ const Header = ({currentUser, hidden}) =>
 const mapStateToProps = state => ({
     currentUser : selectCurrentUser(state),
     hidden : selectCartHidden(state)
-})
+});
 
-export default connect(mapStateToProps,null)(Header);
+const mapDispatchToProps = dispatch => ({
+    hideCart :  () => dispatch(setCartHidden())
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(Header);

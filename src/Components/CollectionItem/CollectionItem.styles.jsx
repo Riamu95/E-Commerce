@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import Button from "../Button/Button.component";
 
-
-
 export const ViewItemButton = styled(Button)`
     width: 80%;
     opacity: 0.7;

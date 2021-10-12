@@ -5,6 +5,11 @@ export const toggleCartHidden = () =>
     type : CartActionTypes.toggleCartHidden
 });
 
+
+export const setCartHidden = () => 
+({
+    type : CartActionTypes.setCartHidden
+});
 export const addCartItem = (data) => 
 ({
     type : CartActionTypes.addCartItem,
