@@ -49,10 +49,12 @@ export const addCollectionAndDocuments = async (collectionID, dataToAdd) =>
     const collectionRef = firestore.collection(collectionID);
     const batch = firestore.batch();
 
+    
     dataToAdd.forEach( collection => {
       const newDocRef = collectionRef.doc();
         batch.set(newDocRef,collection)
     });
+    
 
     return await batch.commit();
 };
@@ -76,6 +78,32 @@ export const convertCollectionsSnapshotToMap = ( collections ) => {
     acuumulator[collection.title.toLowerCase()] = collection;
     return acuumulator;
   }, {});
+
+};
+
+
+export const convertCollectionTypeSnapshotToMap = ( collections ) => {
+
+  const transformedCollection =   collections.docs.map( doc => {
+  
+  const { id, imageUrl, linkUrl, size, title, url } = doc.data();
+  
+  return {
+    id : id,
+    title : title,
+    size: size,
+    imageUrl : imageUrl,
+    linkUrl : linkUrl,
+    url : url
+  };
+});
+
+transformedCollection.sort((a,b) => a.id > b.id ? 1 : -1);
+
+return transformedCollection.reduce((acuumulator, collection) => {
+  acuumulator[collection.title.toLowerCase()] = collection;
+  return acuumulator;
+}, {});
 
 };
 
