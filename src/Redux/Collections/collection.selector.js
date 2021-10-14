@@ -10,3 +10,5 @@ export const selectCategoryCollections = createSelector([selectCollection], coll
 });
 
 export const selectCollectionsPreview = createSelector([selectCollections], collections => collections ?   Object.keys(collections).map( collection => collections[collection]): []);
+
+export const selectIsFetching = state => createSelector([selectCollection], collections => collections.isFetching);

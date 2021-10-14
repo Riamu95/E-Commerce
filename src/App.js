@@ -4,28 +4,23 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import  Shop from './Pages/Shop/Shop.component';
 import Header from './Components/Header/Header.component';
 import SignInAndSignUp from './Pages/SignInAndSignUp/SignInAndSignUp.component';
-import {  createUserProfileDocument, auth, addCollectionAndDocuments } from './firebase/firebase.utils';
+import {  createUserProfileDocument, auth } from './firebase/firebase.utils';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './Redux/User/user-actions'
 import { selectCurrentUser } from './Redux/User/user.selector';
 import CheckoutPage from './Pages/Checkout/Checkout.component';
 import DirectoryComponent from './Components/Directory/Directory.component';
 import { shopCollections } from './Redux/Shop/shop.selector';
-import { firestore, convertCollectionTypeSnapshotToMap } from './firebase/firebase.utils';
-import {updateCollectionTypes} from './Redux/Collections/Collection.Actions';
+import { selectIsFetching } from './Redux/Collections/collection.selector';
+import {updateCollectionStartAsync} from './Redux/Collections/Collection.Actions';
 import WithSpinner from './Components/WithSpinner/WithSpinner.component';
 
 const DirectorySpinnerComponent = WithSpinner(DirectoryComponent);
-const ShopSpinnerComponent = WithSpinner(Shop);
+//const ShopSpinnerComponent = WithSpinner(Shop);
 
 class  App extends Component
 {
   unsubscribeFromAuth = null;
-  unsubscribeFromSnapshot = null;
-
-  state = {
-    loading: true
-  };
 
   componentDidMount() {
 
@@ -48,26 +43,27 @@ class  App extends Component
          setCurrentUser(userAuth);
       }
     });
+
+      this.props.setCollectionTypes();
+    /*
     const collectionTypeRef =  firestore.collection('CollectionTypes');
-
-    this.unsubscribeFromSnapshot = collectionTypeRef.onSnapshot( async ( snapshot ) => {
-          const collectionTypes = await  convertCollectionTypeSnapshotToMap(snapshot);
-          console.log(collectionTypes);
-          this.props.setCollectionTypes(collectionTypes);
-          this.setState({loading : false});
-    });
-
+    collectionTypeRef.get().then( snap => {
+     const collectionTypes = convertCollectionTypeSnapshotToMap(snap)
+     this.props.setCollectionTypes(collectionTypes);
+      this.setState({loading: false});
+      */
+    
   }
 
   componentWillUnmount() {
     //closes subscription to firbase auth 
-    this.unsubscribeFromSnapshot();
+    //this.unsubscribeFromSnapshot();
     this.unsubscribeFromAuth();
   }
 
   render()
   {
-    const { loading } = this.state;
+    const { loading } = this.props.isFetching;
     return (
       <div className="App">
         <Header/>
@@ -86,12 +82,13 @@ class  App extends Component
 
 const mapStateToProps = state => ({
   currentUser : selectCurrentUser(state),
-  collections : shopCollections(state)
+  collections : shopCollections(state),
+  isFetching : selectIsFetching(state)
 });
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser :  user =>  dispatch(setCurrentUser(user)),
-  setCollectionTypes : collectionTypes => dispatch(updateCollectionTypes(collectionTypes))
+  setCollectionTypes : () => dispatch(updateCollectionStartAsync())
 });
 
 export default  connect(mapStateToProps,mapDispatchToProps)(App);
