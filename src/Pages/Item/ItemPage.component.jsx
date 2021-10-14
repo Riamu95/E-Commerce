@@ -36,7 +36,7 @@ class ItemPage extends React.Component
 
     render()
     {
-        console.log(this.state.user);
+        console.log(this.state.item);
         return(
             <ItemContainer>
                 <Product>

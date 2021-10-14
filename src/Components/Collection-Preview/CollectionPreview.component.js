@@ -6,8 +6,8 @@ import {selectCollectionItems} from '../../Redux/Shop/shop.selector';
 import { ReactComponent as LeftArrowLogo} from '../../Assets/leftArrow.svg';
 import { ReactComponent as RightArrowLogo} from '../../Assets/rightArrow.svg';
 import { CollectionPreviewContainer, TitleContainer , PreviewContainer, LeftArrowContainer, RightArrowContainer} from './Collection-Preview.styles';
-
-export  {LeftArrowLogo, RightArrowLogo};
+import WithSpinner from '../WithSpinner/WithSpinner.component';
+export  { LeftArrowLogo, RightArrowLogo };
 
 class  ColllectionPreview extends React.Component
 {
@@ -17,12 +17,13 @@ class  ColllectionPreview extends React.Component
         this.state = {
             startIndex : 0,
             endIndex : 3,
-            maxItems : props.shopItems.items.length -1,
-            items : this.props.shopItems.items,
+            maxItems :  props.shopItems.items?  props.shopItems.items.length -1 : 0,
             previewCount  : 4,
             title : this.props.collectionCategory.title
         };
     }
+
+   
 
     onArrowClick = (direction) => {
         //max amount of items to preview on screen per category
@@ -52,7 +53,7 @@ class  ColllectionPreview extends React.Component
                 <PreviewContainer>
                     <LeftArrowContainer onClick={() => this.onArrowClick('left')}/>
                    {                                          //render only the indexs we have chosen max of 4
-                        this.state.items.filter((item, idx) => (idx >= this.state.startIndex && idx <= this.state.endIndex) )
+                        this.props.shopItems.items.filter((item, idx) => (idx >= this.state.startIndex && idx <= this.state.endIndex) )
                         .map((item) => (
                             <CollectionItem key={item.id} {...item} /> 
                         ))

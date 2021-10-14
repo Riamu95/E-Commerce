@@ -7,9 +7,17 @@ export const shopCollections = createSelector([shopCollection], (data) => data.c
 
 export const selectCollectionItems = category => 
     createSelector([shopCollections], collections =>  {
-        if(collections[category])
+
+       if(collections)
+       {
+            if(collections[category])
+            {
+                return Object.assign({}, collections[category]);
+            }
+        }
+        else
         {
-            return Object.assign({}, collections[category]);
+            return {};
         }
 });
 

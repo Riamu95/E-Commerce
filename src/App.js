@@ -4,13 +4,13 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import  Shop from './Pages/Shop/Shop.component';
 import Header from './Components/Header/Header.component';
 import SignInAndSignUp from './Pages/SignInAndSignUp/SignInAndSignUp.component';
-//import CartPage from './Pages/Cart/Cart';
 import {  createUserProfileDocument, auth } from './firebase/firebase.utils';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './Redux/User/user-actions'
 import { selectCurrentUser } from './Redux/User/user.selector';
 import CheckoutPage from './Pages/Checkout/Checkout.component';
 import DirectoryComponent from './Components/Directory/Directory.component';
+import { shopCollections } from './Redux/Shop/shop.selector';
 
 
 class  App extends Component
@@ -19,7 +19,8 @@ class  App extends Component
 
   componentDidMount() {
 
-   const {setCurrentUser} = this.props;
+   const {setCurrentUser } = this.props;
+    
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
       if(userAuth) 
@@ -34,9 +35,10 @@ class  App extends Component
       }
       else
       {
-        setCurrentUser(userAuth);
+         setCurrentUser(userAuth);
       }
     });
+    console.log('AAAAAAAAAAAAAAAAA');
   }
 
   componentWillUnmount() {
@@ -63,7 +65,8 @@ class  App extends Component
 }
 
 const mapStateToProps = state => ({
-  currentUser : selectCurrentUser(state)
+  currentUser : selectCurrentUser(state),
+  collections : shopCollections(state)
 });
 
 const mapDispatchToProps = dispatch => ({
