@@ -4,15 +4,15 @@ import { selectCollectionItems } from "../../Redux/Shop/shop.selector";
 import { connect } from "react-redux";
 import './CollectionsPage.styles.scss';
 
-const CollectionsPage = ({match, shopItems}) => 
+const CollectionsPage = ({shopItems}) => 
 { 
     const { title, items} = shopItems;
+
     return(     
         <div className='collections-page'>
             <h2 className='title'> { title.toUpperCase()} </h2>
             <div className='items'>
                 {
-                   
                     items.map( item => 
                         <CollectionItem  key={item.id} {...item} />)
                 }

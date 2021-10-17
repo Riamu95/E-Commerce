@@ -22,3 +22,6 @@ export const selectCollectionItems = category =>
 });
 
 export const getItem = (categoryID, itemID) => createSelector([selectCollectionItems(categoryID)], collection => collection.items.filter( item => item.id === itemID));
+
+export const getIsFetching =  createSelector([shopCollection], (shopCollection) =>  shopCollection.isFetching);
+export const getIsLoading = createSelector([shopCollections], collections => !collections);

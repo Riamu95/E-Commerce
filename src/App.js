@@ -12,11 +12,12 @@ import CheckoutPage from './Pages/Checkout/Checkout.component';
 import DirectoryComponent from './Components/Directory/Directory.component';
 import { shopCollections } from './Redux/Shop/shop.selector';
 import { selectIsFetching } from './Redux/Collections/collection.selector';
-import {updateCollectionStartAsync} from './Redux/Collections/Collection.Actions';
+import { convertCollectionTypeSnapshotToMap} from './firebase/firebase.utils';
+import { updateCollectionAsync } from './Redux/StoreData.Action';
+import { collectionActionTypes } from './Redux/Collections/Collection.ActionTypes';
 import WithSpinner from './Components/WithSpinner/WithSpinner.component';
 
 const DirectorySpinnerComponent = WithSpinner(DirectoryComponent);
-//const ShopSpinnerComponent = WithSpinner(Shop);
 
 class  App extends Component
 {
@@ -43,21 +44,12 @@ class  App extends Component
          setCurrentUser(userAuth);
       }
     });
-
-      this.props.setCollectionTypes();
-    /*
-    const collectionTypeRef =  firestore.collection('CollectionTypes');
-    collectionTypeRef.get().then( snap => {
-     const collectionTypes = convertCollectionTypeSnapshotToMap(snap)
-     this.props.setCollectionTypes(collectionTypes);
-      this.setState({loading: false});
-      */
-    
+    console.log('ran');
+      this.props.setCollectionTypes();    
   }
 
   componentWillUnmount() {
     //closes subscription to firbase auth 
-    //this.unsubscribeFromSnapshot();
     this.unsubscribeFromAuth();
   }
 
@@ -88,7 +80,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser :  user =>  dispatch(setCurrentUser(user)),
-  setCollectionTypes : () => dispatch(updateCollectionStartAsync())
+  setCollectionTypes : () => dispatch(updateCollectionAsync('CollectionTypes',collectionActionTypes,convertCollectionTypeSnapshotToMap))
 });
 
 export default  connect(mapStateToProps,mapDispatchToProps)(App);

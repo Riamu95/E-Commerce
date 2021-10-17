@@ -5,7 +5,7 @@ const WithSpinner = (WrappedComponent) =>
 {
     const spinner = ({isLoading, ...otherProps}) => {
         
-            return     isLoading ? 
+            return   isLoading ? 
             <SpinnerOverlay>
                 <SpinnerContainer/>
             </SpinnerOverlay>
