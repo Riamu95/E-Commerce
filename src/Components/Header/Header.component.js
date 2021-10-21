@@ -1,24 +1,26 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { HeaderContainer, LogoContainer, Options, Option, LogoDiv } from './Header.styles';
+import { useLocation } from 'react-router-dom';
+import { HeaderContainer, LogoContainer, Options, Option } from './Header.styles';
 import { ReactComponent as Logo} from '../../Assets/crown.svg';
 import  CartIcon from '../Cart-icon/Cart-icon.component';
-import { auth } from '../../firebase/firebase.utils';
+
 import { connect } from 'react-redux';
 import CartDropdownComponent from '../CartDropdown/CartDropdown.component';
 import { selectCurrentUser } from '../../Redux/User/user.selector';
 import { selectCartHidden } from '../../Redux/Cart/cart.selectors';
 import { setCartHidden } from '../../Redux/Cart/cart-actions';
+import { UserSignOutStart } from '../../Redux/User/user-actions';
 
-const Header = ({currentUser, hidden,hideCart}) => 
+const Header = ({currentUser, hidden,hideCart, SignOut}) => 
 {
     const path =  useLocation().pathname;
 
-    const signOut = () => 
+    const onSignOutClick = () => 
     {
+        console.log('ji');
         hideCart();
-        auth.signOut();
-    }
+        SignOut();
+    }; 
 
     return(
         
@@ -32,7 +34,7 @@ const Header = ({currentUser, hidden,hideCart}) =>
                 }
                 <Option to="/contact"> CONTACT </Option>
                 {
-                    currentUser ? <Option as='div' onClick={() => signOut() } to="/shop"> SIGN OUT </Option> : 
+                    currentUser ? <Option as='div' onClick={ () => onSignOutClick( )} to="/shop"> SIGN OUT </Option> : 
                     <Option to="/signIn"> SIGN IN </Option>
                 }
 
@@ -55,7 +57,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    hideCart :  () => dispatch(setCartHidden())
+    hideCart :  () => dispatch(setCartHidden()),
+    SignOut : () => dispatch(UserSignOutStart())
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Header);

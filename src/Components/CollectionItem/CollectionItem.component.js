@@ -11,7 +11,7 @@ const CollectionItem = ({imageUrl, name,price, category, id, match,history}) =>
         <CollectionImage  imageUrl={imageUrl}/>
            <CollectioFooterContainer>
             <ItemName>{name}</ItemName>
-                <ItemPrice>{price}</ItemPrice>
+                <ItemPrice>${price}</ItemPrice>
             </CollectioFooterContainer>
             <ViewItemButton onClick= {() =>  match.params?.collectionId ? history.push(`${match.url}/${id}`) :  history.push(`${match.url}/${category}/${id}`)} inverted > View Item </ViewItemButton>     
         </CollectionItemContainer>

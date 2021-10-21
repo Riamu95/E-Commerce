@@ -41,7 +41,6 @@ class  Shop extends React.Component  {
 }
 
 const mapStateToProps = (state) => ({
-    isFetching : getIsFetching(state),
     isLoading : getIsLoading(state)
 });
 

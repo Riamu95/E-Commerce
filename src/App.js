@@ -24,7 +24,7 @@ class  App extends Component
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-
+    /*
    const {setCurrentUser } = this.props;
     
 
@@ -45,7 +45,9 @@ class  App extends Component
       }
     });
     console.log('ran');
-      this.props.setCollectionTypes();    
+      this.props.setCollectionTypes(); 
+      
+      */
   }
 
   componentWillUnmount() {
@@ -79,7 +81,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser :  user =>  dispatch(setCurrentUser(user)),
+  setCurrentUser :  user =>  dispatch((user)),
   setCollectionTypes : () => dispatch(updateCollectionAsync('CollectionTypes',collectionActionTypes,convertCollectionTypeSnapshotToMap))
 });
 
