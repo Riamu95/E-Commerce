@@ -106,6 +106,15 @@ return transformedCollection.reduce((acuumulator, collection) => {
 
 };
 
+export const getCurrentUser = () => 
+{
+  return new Promise((resolve, fail) => {
+    const unsubscribe =  auth.onAuthStateChanged( auth => {
+        unsubscribe();
+          resolve(auth)
+    }, fail);
+  });
+};
 
 // Initialize Firebase
 firebase.initializeApp(config);

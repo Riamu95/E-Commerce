@@ -4,9 +4,9 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import  Shop from './Pages/Shop/Shop.component';
 import Header from './Components/Header/Header.component';
 import SignInAndSignUp from './Pages/SignInAndSignUp/SignInAndSignUp.component';
-import {  createUserProfileDocument, auth } from './firebase/firebase.utils';
+
 import { connect } from 'react-redux';
-import { setCurrentUser } from './Redux/User/user-actions'
+
 import { selectCurrentUser } from './Redux/User/user.selector';
 import CheckoutPage from './Pages/Checkout/Checkout.component';
 import DirectoryComponent from './Components/Directory/Directory.component';
@@ -16,45 +16,17 @@ import { convertCollectionTypeSnapshotToMap} from './firebase/firebase.utils';
 import { updateCollectionAsync } from './Redux/StoreData.Action';
 import { collectionActionTypes } from './Redux/Collections/Collection.ActionTypes';
 import WithSpinner from './Components/WithSpinner/WithSpinner.component';
-
+import { IsUserAuthenticatedStart } from './Redux/User/user-actions';
 const DirectorySpinnerComponent = WithSpinner(DirectoryComponent);
 
 class  App extends Component
 {
-  unsubscribeFromAuth = null;
 
-  componentDidMount() {
-    /*
-   const {setCurrentUser } = this.props;
-    
-
-    this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
-      if(userAuth) 
-      {
-        const userRef =  createUserProfileDocument(userAuth,'');
-         (await userRef).onSnapshot( snapshot => {
-           setCurrentUser({
-             id: snapshot.id,
-             ...snapshot.data()
-           });
-         });
-      }
-      else
-      {
-         setCurrentUser(userAuth);
-      }
-    });
-    console.log('ran');
-      this.props.setCollectionTypes(); 
-      
-      */
+  componentDidMount()
+  {
+     const { checkIsUserAuthenticated } = this.props;
+     checkIsUserAuthenticated();
   }
-
-  componentWillUnmount() {
-    //closes subscription to firbase auth 
-    this.unsubscribeFromAuth();
-  }
-
   render()
   {
     const { loading } = this.props.isFetching;
@@ -81,8 +53,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser :  user =>  dispatch((user)),
-  setCollectionTypes : () => dispatch(updateCollectionAsync('CollectionTypes',collectionActionTypes,convertCollectionTypeSnapshotToMap))
+  setCollectionTypes : () => dispatch(updateCollectionAsync('CollectionTypes',collectionActionTypes,convertCollectionTypeSnapshotToMap)),
+  checkIsUserAuthenticated : ( ) => dispatch(IsUserAuthenticatedStart())
 });
 
 export default  connect(mapStateToProps,mapDispatchToProps)(App);

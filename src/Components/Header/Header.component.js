@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import CartDropdownComponent from '../CartDropdown/CartDropdown.component';
 import { selectCurrentUser } from '../../Redux/User/user.selector';
 import { selectCartHidden } from '../../Redux/Cart/cart.selectors';
-import { setCartHidden } from '../../Redux/Cart/cart-actions';
+import { onSetCartHidden } from '../../Redux/Cart/cart-actions';
 import { UserSignOutStart } from '../../Redux/User/user-actions';
 
 const Header = ({currentUser, hidden,hideCart, SignOut}) => 
@@ -17,9 +17,8 @@ const Header = ({currentUser, hidden,hideCart, SignOut}) =>
 
     const onSignOutClick = () => 
     {
-        console.log('ji');
-        hideCart();
         SignOut();
+        hideCart();
     }; 
 
     return(
@@ -57,7 +56,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    hideCart :  () => dispatch(setCartHidden()),
+    hideCart :  () => dispatch(onSetCartHidden()),
     SignOut : () => dispatch(UserSignOutStart())
 });
 

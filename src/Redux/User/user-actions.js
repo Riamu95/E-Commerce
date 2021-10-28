@@ -1,26 +1,19 @@
 import { userActionTypes } from "./UserAcionTypes";
 
-export const setCurrentUser = user => (
-{
-    type : userActionTypes.SET_CURRENT_USER,
-    payload : user
-});
-
-
 export const GoogleStartSignIn = () => (
 {
     type : userActionTypes.GOOGLE_START_SIGNIN
 });
 
-export const GoogleSignInSuccess = data => (
+export const SignInSuccess = data => (
 {
-    type : userActionTypes.GOOGLE_START_SIGNIN_SUCCESS,
+    type : userActionTypes.SIGNIN_SUCCESS,
     payload : data
 });
 
-export const GoogleSignInFail = data => (
+export const SignInFail = data => (
 {
-    type : userActionTypes.GOOGLE_START_SIGNIN_FAIL,
+    type : userActionTypes.SIGNIN_FAIL,
     error : data
 });
 
@@ -45,16 +38,8 @@ export const EmailStartSignIn = data => (
     type : userActionTypes.EMAIL_START_SIGNIN,
     payload : data
 });
-    
-export const EmailSignInSuccess = data => (
-{
-    type : userActionTypes.EMAIL_START_SIGNIN_SUCCESS,
-    payload : data
-});
-    
-export const EmailSignInFail = data => (
-{
-    type : userActionTypes.EMAIL_START_SIGNIN_FAIL,
-    error : data
-});
 
+export const IsUserAuthenticatedStart = () => (
+{
+        type : userActionTypes.IS_USER_AUTHENTICATED,
+});

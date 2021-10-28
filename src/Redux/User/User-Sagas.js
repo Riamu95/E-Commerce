@@ -1,8 +1,8 @@
 import { userActionTypes } from "./UserAcionTypes";
-import { auth, provider, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { auth, provider, createUserProfileDocument, getCurrentUser, convertCollectionTypeSnapshotToMap } from "../../firebase/firebase.utils";
 import { put, takeLatest, all ,call } from 'redux-saga/effects';
-import { GoogleSignInSuccess, GoogleSignInFail, EmailSignInSuccess, EmailSignInFail
-, UserSignOutStart , UserSignOutSuccess, UserSignOutFail } from "./user-actions";
+import { SignInSuccess, SignInFail
+,  UserSignOutSuccess, UserSignOutFail } from "./user-actions";
 
 function* onGoogleStartSignIn()
 {
@@ -11,11 +11,10 @@ function* onGoogleStartSignIn()
     {
         try {
             const userRef = yield createUserProfileDocument(userAuth.user, '');
-            const userSnapshot = yield userRef.get();
-            yield put(GoogleSignInSuccess({id : userSnapshot.id, ...userSnapshot.data()}));
+           yield getSnapshotFromUserAuth(userRef.user);
         }catch(err)
         {
-            yield put(GoogleSignInFail({ error: err}));
+            yield put(SignInFail({ error: err}));
         }
     }
 };
@@ -25,18 +24,28 @@ function* GoogleStartSignIn()
    yield takeLatest(userActionTypes.GOOGLE_START_SIGNIN, onGoogleStartSignIn);
 };
 
-function* onEmailStartSignIn(data)
+function* getSnapshotFromUserAuth(user)
 {
     try {
-        const userAuth = yield auth.signInWithEmailAndPassword(data.payload.email,data.payload.password);
-         const userRef = yield call(createUserProfileDocument,userAuth.user, '');
+       
+         const userRef = yield call(createUserProfileDocument,user, '');
          const snapshot = yield userRef.get();
-         yield put(EmailSignInSuccess({ id : snapshot.id, ...snapshot.data() }));
+         yield put(SignInSuccess({ id : snapshot.id, ...snapshot.data() }));
+    }
+    catch (err) {
+        yield put(SignInFail({ error: err}));
+    }
+};
+
+function* onEmailStartSignIn({ payload : {email, password }})
+{
+    try {
+        const userAuth = yield auth.signInWithEmailAndPassword(email,password);
+        yield call(getSnapshotFromUserAuth,userAuth.user);
     }
     catch ( err) {
-        yield put(EmailSignInFail({ error: err}));
+        yield put(SignInFail({ error: err}));
     }
-   
 };
 
 function* onUserSignOut()
@@ -61,7 +70,23 @@ function* UserSignOut()
    yield takeLatest(userActionTypes.USER_SIGN_OUT_START, onUserSignOut);
 };
 
+function* isUserAuthenticated()
+{
+    try{
+    const userAuth = yield getCurrentUser();
+    if (!userAuth) return;
+        yield getSnapshotFromUserAuth(userAuth);
+    } catch (error) {
+    yield put(SignInFail(error));
+  }
+}
+
+function* onIsUserAuthenticated()
+{
+    yield takeLatest(userActionTypes.IS_USER_AUTHENTICATED, isUserAuthenticated)
+}
+
 export function* userSagas()
 {
-    yield all([call(GoogleStartSignIn), call(EmailStartSignIn), call(UserSignOut)]);
+    yield all([call(GoogleStartSignIn), call(EmailStartSignIn), call(UserSignOut), call(onIsUserAuthenticated)]);
 };

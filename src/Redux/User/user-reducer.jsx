@@ -9,14 +9,12 @@ const userReducer = ( state = INITIAL_STATE ,  action ) =>
 {   
     switch (action.type)
     {
-        case userActionTypes.EMAIL_START_SIGNIN_SUCCESS:
-        case userActionTypes.GOOGLE_START_SIGNIN_SUCCESS:
+        case userActionTypes.SIGNIN_SUCCESS:
             return {
                 ...state,
                 currentUser : action.payload
             };
-        case userActionTypes.EMAIL_START_SIGNIN_FAIL:
-        case userActionTypes.GOOGLE_START_SIGNIN_FAIL:
+        case userActionTypes.SIGNIN_FAIL:
             return {
                 ...state,
                 currentUser: null,
@@ -32,11 +30,6 @@ const userReducer = ( state = INITIAL_STATE ,  action ) =>
                 ...state,
                 currentUser: null,
                 error : action.payload
-            };
-        case userActionTypes.SET_CURRENT_USER:
-            return {
-                ...state,
-                currentUser : action.payload
             };
         default:
             return state;

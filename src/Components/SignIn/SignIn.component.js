@@ -5,6 +5,7 @@ import CustomButton from "../Button/Button.component";
 import { GoogleStartSignIn, EmailStartSignIn } from '../../Redux/User/user-actions';
 import { connect } from 'react-redux';
 
+
 class SignIn extends React.Component
 {
     constructor()
@@ -20,19 +21,10 @@ class SignIn extends React.Component
     {   
         event.preventDefault();
         const { email , password } = this.state;
-        this.props.EmailSignIn({ email, password});
+        const { EmailSignIn } = this.props;
+        EmailSignIn({ email, password});
+     
         this.setState({email : '', password : ''});
-        /*
-        try {
-            await auth.signInWithEmailAndPassword(email,password);
-           
-
-        }
-        catch (err) {
-            	console.log(err);
-        }
-        */
-        
     }
 
     handleChange = e =>
@@ -80,7 +72,7 @@ class SignIn extends React.Component
 const mapDispatchToProps = dispatch => 
 ({
     GoogleSignIn :  () => dispatch(GoogleStartSignIn()),
-    EmailSignIn :  (data) => dispatch(EmailStartSignIn(data))
+    EmailSignIn :  (data) => dispatch(EmailStartSignIn(data)),
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);

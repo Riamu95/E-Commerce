@@ -3,5 +3,7 @@ export const CartActionTypes = {
     addCartItem : 'add_cart_item',
     removeCartItem : 'remove_cart_item',
     decrementCartItem : 'decrement_cart_quantity',
-    setCartHidden : 'set_cart_hidden'
+    onHideCart : 'on_hide_cart',
+    setCartHidden : 'set_cart_hidden',
+    clearCart : 'clear_cart',
 }
