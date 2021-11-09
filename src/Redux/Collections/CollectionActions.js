@@ -1,9 +1,6 @@
 import { collectionActionTypes } from "./Collection.ActionTypes";
 
 
-export const OnUpdateCollection = () => ({
-    type : collectionActionTypes.ON_UPDATE_COLLECTION
-});
 export const fetchCollectionsStart = () => ({
     type : collectionActionTypes.UPDATE_COLLECTION_START
 });

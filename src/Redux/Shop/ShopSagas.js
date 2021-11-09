@@ -1,12 +1,10 @@
 import { all, call, takeLatest, put } from "@redux-saga/core/effects";
 import { shopActionTypes } from './ShopActionTypes';
-import { shopUpdateStart, shopUpdateSuccess, shopUpdateFail} from './ShopActions';
+import { shopUpdateSuccess, shopUpdateFail} from './ShopActions';
 import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase.utils';
 
-function* onItemsUpdate()
+function* ItemsUpdate()
 {
-  
-    yield put(shopUpdateStart());
     try {
         const collectionRef = yield firestore.collection('Collections');
         const snap = yield collectionRef.get();
@@ -19,11 +17,11 @@ function* onItemsUpdate()
     }
 };
 
-function* itemsStart()
+function* onItemsUpdate()
 {
-    yield takeLatest(shopActionTypes.ON_ITEMS_UPDATE, onItemsUpdate);
+    yield takeLatest(shopActionTypes.UPDATE_ITEMS_START, ItemsUpdate);
 };
 
 export function* shopSaga() {
-      yield all([call(itemsStart)])
+      yield all([call(onItemsUpdate)])
 };

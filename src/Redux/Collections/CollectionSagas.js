@@ -1,15 +1,14 @@
 import { all, call, takeLatest, put } from "@redux-saga/core/effects";
 import {   collectionActionTypes } from './Collection.ActionTypes';
 import { firestore, convertCollectionTypeSnapshotToMap } from "../../firebase/firebase.utils";
-import { fetchCollectionsStart, fetchCollectionSuccess, fetchCollectionFailure } from './CollectionActions';
+import { fetchCollectionSuccess, fetchCollectionFailure } from './CollectionActions';
 
 
-function* onCollectionUpdateStart()
+function* collectionUpdate()
 {
-    const collectionRef =  yield firestore.collection('CollectionTypes');
-    yield put(fetchCollectionsStart())
     
     try {
+        const collectionRef =  yield firestore.collection('CollectionTypes');
         const snapshot = yield collectionRef.get();
         const colllections = yield call(convertCollectionTypeSnapshotToMap,snapshot);
         yield put(fetchCollectionSuccess(colllections));
@@ -19,11 +18,11 @@ function* onCollectionUpdateStart()
     }
 }
 
-function* CollectionStart()
+function* onCollectionUpdateStart()
 {
-    yield takeLatest(collectionActionTypes.ON_UPDATE_COLLECTION,onCollectionUpdateStart);
+    yield takeLatest(collectionActionTypes.UPDATE_COLLECTION_START,collectionUpdate);
 }
 
 export function* collectionSaga() {
-    yield all([call(CollectionStart)])
+    yield all([call(onCollectionUpdateStart)])
 };

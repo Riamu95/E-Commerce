@@ -12,7 +12,7 @@ import CheckoutPage from './Pages/Checkout/Checkout.component';
 import DirectoryComponent from './Components/Directory/Directory.component';
 import { shopCollections } from './Redux/Shop/shop.selector';
 import { selectIsFetching } from './Redux/Collections/collection.selector';
-import { OnUpdateCollection } from './Redux/Collections/CollectionActions';
+import { fetchCollectionsStart } from './Redux/Collections/CollectionActions';
 import WithSpinner from './Components/WithSpinner/WithSpinner.component';
 import { IsUserAuthenticatedStart } from './Redux/User/user-actions';
 
@@ -53,7 +53,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCollectionTypes : () => dispatch(OnUpdateCollection()),
+  setCollectionTypes : () => dispatch(fetchCollectionsStart()),
   checkIsUserAuthenticated : ( ) => dispatch(IsUserAuthenticatedStart())
 });
 

@@ -1,8 +1,8 @@
 import { userActionTypes } from "./UserAcionTypes";
-import { auth, provider, createUserProfileDocument, getCurrentUser, convertCollectionTypeSnapshotToMap } from "../../firebase/firebase.utils";
+import { auth, provider, createUserProfileDocument, getCurrentUser } from "../../firebase/firebase.utils";
 import { put, takeLatest, all ,call } from 'redux-saga/effects';
 import { SignInSuccess, SignInFail
-,  UserSignOutSuccess, UserSignOutFail, UserSignUp, UserSignUpStart, UserSignUpFail, UserSignUpSuccess } from "./user-actions";
+,  UserSignOutSuccess, UserSignOutFail, UserSignUpFail, UserSignUpSuccess } from "./user-actions";
 
 function* onGoogleStartSignIn()
 {
@@ -85,13 +85,14 @@ function* onIsUserAuthenticated()
     yield takeLatest(userActionTypes.IS_USER_AUTHENTICATED, isUserAuthenticated)
 }
 
-function* onUserSignUp({payload : { email, password, displayName }})
+function* SignUp({payload : { email, password, displayName }})
 {
-    yield put(UserSignUpStart());
     try {
         const { user } = yield auth.createUserWithEmailAndPassword(
             email,
            password); 
+           //sign up success
+           //call sign in with user obj
        const ref = yield call(createUserProfileDocument, user, {displayName});
        const snap = yield ref.get();
         yield put(UserSignUpSuccess({ id : snap.id, ...snap.data()}));
@@ -102,12 +103,18 @@ function* onUserSignUp({payload : { email, password, displayName }})
     }; 
 };
 
-function* UserRegister()
+function* onSignUpStart()
 {
-    yield takeLatest(userActionTypes.USER_SIGN_UP, onUserSignUp);
+    yield takeLatest(userActionTypes.USER_SIGN_UP_START, SignUp);
 };
 
 export function* userSagas()
 {
-    yield all([call(GoogleStartSignIn), call(EmailStartSignIn), call(UserSignOut), call(onIsUserAuthenticated), call(UserRegister)]);
+    yield all([
+        call(GoogleStartSignIn),
+        call(EmailStartSignIn),
+        call(UserSignOut),
+        call(onIsUserAuthenticated),
+        call(onSignUpStart)
+    ]);
 };

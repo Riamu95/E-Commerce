@@ -44,15 +44,10 @@ export const IsUserAuthenticatedStart = () => (
         type : userActionTypes.IS_USER_AUTHENTICATED,
 });
 
-export const UserSignUp = data => (
+export const UserSignUpStart = data => (
 {
-    type : userActionTypes.USER_SIGN_UP,
+    type : userActionTypes.USER_SIGN_UP_START,
     payload : data
-});
-
-export const UserSignUpStart = () => (
-{
-    type : userActionTypes.USER_SIGN_UP_START
 });
 
 export const UserSignUpSuccess = data => (

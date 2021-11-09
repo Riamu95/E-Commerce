@@ -10,7 +10,7 @@ import ItemPage from '../Item/ItemPage.component';
 import WithSpinner from '../../Components/WithSpinner/WithSpinner.component';
 
 import { getIsLoading} from '../../Redux/Shop/shop.selector';
-import { shopUpdate } from '../../Redux/Shop/ShopActions';
+import { shopUpdateStart } from '../../Redux/Shop/ShopActions';
 
 
 
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateCollections : () => dispatch(shopUpdate())
+    updateCollections : () => dispatch(shopUpdateStart())
 });
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Shop));
