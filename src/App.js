@@ -12,11 +12,10 @@ import CheckoutPage from './Pages/Checkout/Checkout.component';
 import DirectoryComponent from './Components/Directory/Directory.component';
 import { shopCollections } from './Redux/Shop/shop.selector';
 import { selectIsFetching } from './Redux/Collections/collection.selector';
-import { convertCollectionTypeSnapshotToMap} from './firebase/firebase.utils';
-import { updateCollectionAsync } from './Redux/StoreData.Action';
-import { collectionActionTypes } from './Redux/Collections/Collection.ActionTypes';
+import { OnUpdateCollection } from './Redux/Collections/CollectionActions';
 import WithSpinner from './Components/WithSpinner/WithSpinner.component';
 import { IsUserAuthenticatedStart } from './Redux/User/user-actions';
+
 const DirectorySpinnerComponent = WithSpinner(DirectoryComponent);
 
 class  App extends Component
@@ -24,8 +23,9 @@ class  App extends Component
 
   componentDidMount()
   {
-     const { checkIsUserAuthenticated } = this.props;
+     const { checkIsUserAuthenticated, setCollectionTypes } = this.props;
      checkIsUserAuthenticated();
+     setCollectionTypes();
   }
   render()
   {
@@ -53,7 +53,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCollectionTypes : () => dispatch(updateCollectionAsync('CollectionTypes',collectionActionTypes,convertCollectionTypeSnapshotToMap)),
+  setCollectionTypes : () => dispatch(OnUpdateCollection()),
   checkIsUserAuthenticated : ( ) => dispatch(IsUserAuthenticatedStart())
 });
 

@@ -9,6 +9,8 @@ import {DirectoryMenu} from "./Directory.styles.jsx";
 
 const  Directory = ({ collections }) =>
 {
+    console.log(collections);
+    
     return (
         <DirectoryMenu>
             {
