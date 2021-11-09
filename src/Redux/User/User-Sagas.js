@@ -27,6 +27,7 @@ function* GoogleStartSignIn()
 function* getSnapshotFromUserAuth(user)
 {
     try {
+        yield console.log(user);
          const userRef = yield call(createUserProfileDocument,user, '');
          const snapshot = yield userRef.get();
          yield put(SignInSuccess({ id : snapshot.id, ...snapshot.data() }));
@@ -90,12 +91,9 @@ function* SignUp({payload : { email, password, displayName }})
     try {
         const { user } = yield auth.createUserWithEmailAndPassword(
             email,
-           password); 
-           //sign up success
-           //call sign in with user obj
-       const ref = yield call(createUserProfileDocument, user, {displayName});
-       const snap = yield ref.get();
-        yield put(UserSignUpSuccess({ id : snap.id, ...snap.data()}));
+           password);
+        yield put(UserSignUpSuccess());
+        yield call(getSnapshotFromUserAuth,user);
     }
     catch (err) 
     {

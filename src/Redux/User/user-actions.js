@@ -50,10 +50,9 @@ export const UserSignUpStart = data => (
     payload : data
 });
 
-export const UserSignUpSuccess = data => (
+export const UserSignUpSuccess = () => (
 {
     type : userActionTypes.USER_SIGN_UP_SUCCESS,
-    payload : data
 });
 
 export const UserSignUpFail = data => (
