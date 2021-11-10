@@ -9,9 +9,8 @@ import {DirectoryMenu} from "./Directory.styles.jsx";
 
 const  Directory = ({ collections }) =>
 {
-    console.log(collections);
-    
     return (
+       
         <DirectoryMenu>
             {
                collections.map( collection => <MenuItem key = { collection.id } image = {  collection.imageUrl } title = { collection.title} size = {  collection.size} url = {  collection.url } />)               

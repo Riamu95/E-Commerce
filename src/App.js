@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component , useEffect} from 'react';
 import './App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import  Shop from './Pages/Shop/Shop.component';
@@ -18,33 +18,29 @@ import { IsUserAuthenticatedStart } from './Redux/User/user-actions';
 
 const DirectorySpinnerComponent = WithSpinner(DirectoryComponent);
 
-class  App extends Component
-{
 
-  componentDidMount()
-  {
-     const { checkIsUserAuthenticated, setCollectionTypes } = this.props;
-     checkIsUserAuthenticated();
-     setCollectionTypes();
-  }
-  render()
-  {
-    const { loading } = this.props.isFetching;
+const App = ({isFetching, checkIsUserAuthenticated, setCollectionTypes, currentUser}) => {
+  
+  useEffect(() => {
+    checkIsUserAuthenticated();
+    setCollectionTypes();
+  },[checkIsUserAuthenticated]);
+
+ 
+
     return (
       <div className="App">
         <Header/>
         <Switch>
-          <Route exact path='/' render={(props) => <DirectorySpinnerComponent isLoading={loading} {...props}/>}/>
+          <Route exact path='/' render={(props) => <DirectorySpinnerComponent isLoading={isFetching} {...props} />}/>
           <Route  path='/shop' component={Shop}/>
           <Route exact path='/contact' component={Shop}/>
-          <Route exact path='/signin' render = { () => this.props.currentUser ? (<Redirect to='/shop'/>) : (<SignInAndSignUp/>) }/>
+          <Route exact path='/signin' render = { () => currentUser ? (<Redirect to='/shop'/>) : (<SignInAndSignUp/>) }/>
           <Route exact path='/checkout' component={CheckoutPage}/>
         </Switch>
       </div>
     );
-  }
-
-}
+};
 
 const mapStateToProps = state => ({
   currentUser : selectCurrentUser(state),
@@ -54,7 +50,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setCollectionTypes : () => dispatch(fetchCollectionsStart()),
-  checkIsUserAuthenticated : ( ) => dispatch(IsUserAuthenticatedStart())
+  checkIsUserAuthenticated : () => dispatch(IsUserAuthenticatedStart())
 });
 
 export default  connect(mapStateToProps,mapDispatchToProps)(App);

@@ -24,12 +24,7 @@ const SignUp = ({onUserSignUp}) => {
         }
 
        onUserSignUp({displayName,email,password});
-
-        setDisplayName('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-    }
+    };
 
     return(
             <div className="sign-up">
