@@ -1,16 +1,15 @@
-import { Component , useEffect} from 'react';
+import {useEffect} from 'react';
 import './App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import  Shop from './Pages/Shop/Shop.component';
 import Header from './Components/Header/Header.component';
 import SignInAndSignUp from './Pages/SignInAndSignUp/SignInAndSignUp.component';
 
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { selectCurrentUser } from './Redux/User/user.selector';
 import CheckoutPage from './Pages/Checkout/Checkout.component';
 import DirectoryComponent from './Components/Directory/Directory.component';
-import { shopCollections } from './Redux/Shop/shop.selector';
 import { selectIsFetching } from './Redux/Collections/collection.selector';
 import { fetchCollectionsStart } from './Redux/Collections/CollectionActions';
 import WithSpinner from './Components/WithSpinner/WithSpinner.component';
@@ -19,15 +18,18 @@ import { IsUserAuthenticatedStart } from './Redux/User/user-actions';
 const DirectorySpinnerComponent = WithSpinner(DirectoryComponent);
 
 
-const App = ({isFetching, checkIsUserAuthenticated, setCollectionTypes, currentUser}) => {
+const App = () => {
   
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    checkIsUserAuthenticated();
-    setCollectionTypes();
-  },[checkIsUserAuthenticated]);
+    dispatch(IsUserAuthenticatedStart());
+    dispatch(fetchCollectionsStart());
+  },[dispatch]);
 
- 
-
+  const currentUser = useSelector((state) => selectCurrentUser(state));
+  const isFetching = useSelector((state) => selectIsFetching(state));
+    
     return (
       <div className="App">
         <Header/>
@@ -42,15 +44,5 @@ const App = ({isFetching, checkIsUserAuthenticated, setCollectionTypes, currentU
     );
 };
 
-const mapStateToProps = state => ({
-  currentUser : selectCurrentUser(state),
-  collections : shopCollections(state),
-  isFetching : selectIsFetching(state)
-});
+export default App;
 
-const mapDispatchToProps = dispatch => ({
-  setCollectionTypes : () => dispatch(fetchCollectionsStart()),
-  checkIsUserAuthenticated : () => dispatch(IsUserAuthenticatedStart())
-});
-
-export default  connect(mapStateToProps,mapDispatchToProps)(App);

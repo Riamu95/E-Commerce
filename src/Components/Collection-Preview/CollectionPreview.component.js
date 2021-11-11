@@ -1,35 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CollectionItem from '../CollectionItem/CollectionItem.component';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'; 
+import { useSelector } from 'react-redux';
+import { withRouter, useHistory } from 'react-router-dom'; 
 import {selectCollectionItems} from '../../Redux/Shop/shop.selector';
 import { ReactComponent as LeftArrowLogo} from '../../Assets/leftArrow.svg';
 import { ReactComponent as RightArrowLogo} from '../../Assets/rightArrow.svg';
 import { CollectionPreviewContainer, TitleContainer , PreviewContainer, LeftArrowContainer, RightArrowContainer} from './Collection-Preview.styles';
-import WithSpinner from '../WithSpinner/WithSpinner.component';
 export  { LeftArrowLogo, RightArrowLogo };
 
-class  ColllectionPreview extends React.Component
+const ColllectionPreview = ({ collectionCategory , match}) => 
 {
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-            startIndex : 0,
-            endIndex : 3,
-            maxItems :  props.shopItems.items?  props.shopItems.items.length -1 : 0,
-            previewCount  : 4,
-            title : this.props.collectionCategory.title
-        };
-    }
+    const shopItems = useSelector((state) => selectCollectionItems(collectionCategory.title)(state))
+    
+    const [index, setIndex] = useState({
+        startIndex : 0,
+        endIndex : 3
+    });
 
-   
+    const [maxItems, setMaxItems] = useState(shopItems.items?  shopItems.items.length -1 : 0);
+    const [previewCount, setPreviewCount] = useState(4);
+    const [title, setTitle] = useState(collectionCategory.title);
+    const history = useHistory();
 
-    onArrowClick = (direction) => {
+    const onArrowClick = (direction) => {
         //max amount of items to preview on screen per category
-        const previewCount = this.state.previewCount;
+        
         //caluclate offset from array boundary to closest index based on direction
-        const diff = direction  === 'right' ? (this.state.maxItems - this.state.endIndex) :  ((0 - this.state.startIndex) * -1);
+        const diff = direction  === 'right' ? (maxItems - index.endIndex) :  ((0 - index.startIndex) * -1);
         //if at array boundary do nothing
         if(diff === 0)
             return null;
@@ -37,36 +34,31 @@ class  ColllectionPreview extends React.Component
             //move furthest index to render newest item
             //move closest index to render the last item
             diff <= previewCount ?
-                direction === 'left' ?  this.setState({ endIndex : this.state.startIndex - 1, startIndex : this.state.startIndex - diff}) :
-                this.setState({ startIndex : this.state.endIndex + 1, endIndex : this.state.endIndex + diff})
+                direction === 'left' ?  setIndex({ endIndex : index.startIndex - 1, startIndex : index.startIndex - diff}) :
+                setIndex({ startIndex :index.endIndex + 1, endIndex : index.endIndex + diff})
             :
-                direction === 'left' ?  this.setState({ endIndex : this.state.startIndex - 1, startIndex : this.state.startIndex - previewCount}) :
-                this.setState({ startIndex : this.state.endIndex + 1, endIndex : this.state.endIndex + previewCount})
+                direction === 'left' ?  setIndex({ endIndex : index.startIndex - 1, startIndex : index.startIndex - previewCount}) :
+               setIndex({ startIndex : index.endIndex + 1, endIndex : index.endIndex + previewCount})
 
     };
 
-    render()
-    {
-        return(
-            <CollectionPreviewContainer> 
-                <TitleContainer  onClick={ () => this.props.history.push(`${this.props.match.url}/${this.state.title}`)}> {this.state.title.toUpperCase()}</TitleContainer>
-                <PreviewContainer>
-                    <LeftArrowContainer onClick={() => this.onArrowClick('left')}/>
-                   {                                          //render only the indexs we have chosen max of 4
-                        this.props.shopItems.items.filter((item, idx) => (idx >= this.state.startIndex && idx <= this.state.endIndex) )
-                        .map((item) => (
-                            <CollectionItem key={item.id} {...item} /> 
-                        ))
-                    }
-                    <RightArrowContainer onClick={() => this.onArrowClick('right')}/>
-                </PreviewContainer>
-            </CollectionPreviewContainer>
-        );
-    }
-}
 
-const mapStateToProps = (state,ownProps) => ({
-    shopItems : selectCollectionItems(ownProps.collectionCategory.title)(state)
-});
+    return(
+        <CollectionPreviewContainer> 
+            <TitleContainer  onClick={ () => history.push(`${match.url}/${title}`)}> {title.toUpperCase()}</TitleContainer>
+            <PreviewContainer>
+                <LeftArrowContainer onClick={() => onArrowClick('left')}/>
+               {                                          //render only the indexs we have chosen max of 4
+                    shopItems.items.filter((item, idx) => (idx >= index.startIndex && idx <= index.endIndex) )
+                    .map((item) => (
+                        <CollectionItem key={item.id} {...item} /> 
+                    ))
+                }
+                <RightArrowContainer onClick={() => onArrowClick('right')}/>
+            </PreviewContainer>
+        </CollectionPreviewContainer>
+    );
 
-export default withRouter(connect(mapStateToProps, null)(ColllectionPreview));
+};
+
+export default withRouter(ColllectionPreview);

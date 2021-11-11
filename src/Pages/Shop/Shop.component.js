@@ -25,7 +25,7 @@ const  Shop = ({updateCollections, isLoading, match}) =>  {
             <div>
                 <Route  exact path={`${match.path}`} render = { (props) => <CollectionsOverviewSpinner  isLoading={isLoading} {...props} />}/>
                 <Route exact  path = {`${match.path}/:collectionId`}  render = { (props) => <CollectionsPageSpinner  isLoading={isLoading} {...props} />}/>
-                <Route   path = {`${match.path}/:collectionId/:itemId`} render={ (props) => <ItemPageSpinner isLoading={isLoading} {...props}/>}/> 
+                <Route   path = {`${match.path}/:collectionId/:itemId`} render = { (props) => <ItemPageSpinner isLoading={isLoading} {...props}/>}/> 
         </div>
     );
  };
