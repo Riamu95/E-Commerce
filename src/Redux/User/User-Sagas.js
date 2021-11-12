@@ -11,7 +11,7 @@ function* onGoogleStartSignIn()
     {
         try {
             const userRef = yield createUserProfileDocument(userAuth.user, '');
-           yield getSnapshotFromUserAuth(userRef.user);
+            yield getSnapshotFromUserAuth(userRef);
         }catch(err)
         {
             yield put(SignInFail({ error: err}));
@@ -27,7 +27,6 @@ function* GoogleStartSignIn()
 function* getSnapshotFromUserAuth(user)
 {
     try {
-        yield console.log(user);
          const userRef = yield call(createUserProfileDocument,user, '');
          const snapshot = yield userRef.get();
          yield put(SignInSuccess({ id : snapshot.id, ...snapshot.data() }));

@@ -1,11 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { addCartItem } from '../../Redux/Cart/cart-actions';
-import { withRouter } from 'react-router';
+import { withRouter, useHistory, useRouteMatch } from 'react-router';
 import { ViewItemButton, CollectionItemContainer, CollectionImage, CollectioFooterContainer, ItemName, ItemPrice } from './CollectionItem.styles.jsx';
 
-const CollectionItem = ({imageUrl, name,price, category, id, match,history}) => 
+const CollectionItem = ({imageUrl, name,price, category, id}) => 
 {  
+    const history = useHistory();
+    const match = useRouteMatch();
+    
     return( 
         <CollectionItemContainer>
         <CollectionImage  imageUrl={imageUrl}/>
@@ -17,9 +18,4 @@ const CollectionItem = ({imageUrl, name,price, category, id, match,history}) =>
         </CollectionItemContainer>
     );
 }
-
-const mapDispatchToProps = (dispatch) => ({
-    addCartItem : (data) => dispatch(addCartItem(data))
-});
-
-export default withRouter(connect(null, mapDispatchToProps)(CollectionItem));
+export default withRouter(CollectionItem);

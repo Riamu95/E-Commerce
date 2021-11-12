@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import CollectionItem from '../CollectionItem/CollectionItem.component';
 import { useSelector } from 'react-redux';
-import { withRouter, useHistory } from 'react-router-dom'; 
+import { useHistory, useRouteMatch } from 'react-router-dom'; 
 import {selectCollectionItems} from '../../Redux/Shop/shop.selector';
 import { ReactComponent as LeftArrowLogo} from '../../Assets/leftArrow.svg';
 import { ReactComponent as RightArrowLogo} from '../../Assets/rightArrow.svg';
 import { CollectionPreviewContainer, TitleContainer , PreviewContainer, LeftArrowContainer, RightArrowContainer} from './Collection-Preview.styles';
 export  { LeftArrowLogo, RightArrowLogo };
 
-const ColllectionPreview = ({ collectionCategory , match}) => 
+const ColllectionPreview = ({collectionCategory}) => 
 {
     const shopItems = useSelector((state) => selectCollectionItems(collectionCategory.title)(state))
     
@@ -17,10 +17,12 @@ const ColllectionPreview = ({ collectionCategory , match}) =>
         endIndex : 3
     });
 
-    const [maxItems, setMaxItems] = useState(shopItems.items?  shopItems.items.length -1 : 0);
-    const [previewCount, setPreviewCount] = useState(4);
-    const [title, setTitle] = useState(collectionCategory.title);
+
+    const [maxItems] = useState(shopItems.items?  shopItems.items.length -1 : 0);
+    const [previewCount] = useState(4);
+    const [title] = useState(collectionCategory.title);
     const history = useHistory();
+    const  match = useRouteMatch();
 
     const onArrowClick = (direction) => {
         //max amount of items to preview on screen per category
@@ -42,7 +44,6 @@ const ColllectionPreview = ({ collectionCategory , match}) =>
 
     };
 
-
     return(
         <CollectionPreviewContainer> 
             <TitleContainer  onClick={ () => history.push(`${match.url}/${title}`)}> {title.toUpperCase()}</TitleContainer>
@@ -61,4 +62,4 @@ const ColllectionPreview = ({ collectionCategory , match}) =>
 
 };
 
-export default withRouter(ColllectionPreview);
+export default ColllectionPreview;

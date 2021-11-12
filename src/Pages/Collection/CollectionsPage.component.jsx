@@ -1,13 +1,16 @@
-import React from "react";
+import React  from "react";
 import CollectionItem from "../../Components/CollectionItem/CollectionItem.component";
 import { selectCollectionItems } from "../../Redux/Shop/shop.selector";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
+import { useParams } from 'react-router-dom';
+
 import './CollectionsPage.styles.scss';
 
-const CollectionsPage = ({shopItems}) => 
+const CollectionsPage = () => 
 { 
-    const { title, items} = shopItems;
-
+    const { collectionId } = useParams();
+    const { title, items} = useSelector((state) => selectCollectionItems(collectionId)(state));
+  
     return(     
         <div className='collections-page'>
             <h2 className='title'> { title.toUpperCase()} </h2>
@@ -21,8 +24,4 @@ const CollectionsPage = ({shopItems}) =>
     );
 };
 
-const mapStateToProps = (state,ownProps) => ({
-    shopItems : selectCollectionItems(ownProps.match.params.collectionId)(state)
-});
-
-export default connect(mapStateToProps,null)(CollectionsPage);
+export default CollectionsPage;

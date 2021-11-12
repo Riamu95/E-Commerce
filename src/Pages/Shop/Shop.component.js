@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Route, withRouter } from 'react-router';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 import CollectionsOverview from '../../Components/CollectionsOverview/CollectionsOverview.component';
 import CollectionsPage from '../Collection/CollectionsPage.component';
@@ -16,9 +16,13 @@ const CollectionsOverviewSpinner = WithSpinner(CollectionsOverview);
 const CollectionsPageSpinner = WithSpinner(CollectionsPage);
 const ItemPageSpinner = WithSpinner(ItemPage);
 
-const  Shop = ({updateCollections, isLoading, match}) =>  {
+const  Shop = ({updateCollections, match}) =>  {
+
+    const isLoading = useSelector(state => getIsLoading(state));
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        updateCollections();
+        dispatch(shopUpdateStart());
     },[updateCollections] );
     
     return(
@@ -30,12 +34,4 @@ const  Shop = ({updateCollections, isLoading, match}) =>  {
     );
  };
  
- const mapStateToProps = (state) => ({
-     isLoading : getIsLoading(state)
- });
- 
- const mapDispatchToProps = dispatch => ({
-     updateCollections : () => dispatch(shopUpdateStart())
- });
- 
- export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Shop));
+ export default withRouter(Shop);
