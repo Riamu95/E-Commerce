@@ -39,7 +39,7 @@ const CheckoutPage = ({items, cartPrice}) =>
                 <div className='test'>
                     *Please use the following test card details for payments*
                     <br/>
-                    Card Number : 4234 4234 4234 4234 EXP : 02/27 CVC : 123
+                    Card Number : 4242 4242 4242 4242 EXP : 02/27 CVC : 123
                 </div>
                 <div className='button'>
                     <StripeButton price={cartPrice}/>
