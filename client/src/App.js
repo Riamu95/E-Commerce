@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import './App.css';
+import { GlobalStyle } from './global.styles';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import  Shop from './Pages/Shop/Shop.component';
 import Header from './Components/Header/Header.component';
@@ -32,6 +32,7 @@ const App = () => {
     
     return (
       <div className="App">
+        <GlobalStyle/>
         <Header/>
         <Switch>
           <Route exact path='/' render={(props) => <DirectorySpinnerComponent isLoading={isFetching} {...props} />}/>
