@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import  Shop from './Pages/Shop/Shop.component';
 import Header from './Components/Header/Header.component';
 import SignInAndSignUp from './Pages/SignInAndSignUp/SignInAndSignUp.component';
-
+import SignUpComponent from './Components/SignUp/SignUp.component';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectCurrentUser } from './Redux/User/user.selector';
@@ -39,6 +39,7 @@ const App = () => {
           <Route  path='/shop' component={Shop}/>
           <Route exact path='/contact' component={Shop}/>
           <Route exact path='/signin' render = { () => currentUser ? (<Redirect to='/shop'/>) : (<SignInAndSignUp/>) }/>
+          <Route exact path='/signup' render = { () => currentUser ? (<Redirect to='/shop'/>) : (<SignUpComponent/>) }/>
           <Route exact path='/checkout' component={CheckoutPage}/>
         </Switch>
       </div>

@@ -6,7 +6,7 @@ import { GoogleStartSignIn, EmailStartSignIn } from '../../Redux/User/user-actio
 import { useDispatch } from 'react-redux';
 
 
-const SignIn = () => {
+const SignIn = ({ width }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

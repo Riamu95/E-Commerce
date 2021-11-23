@@ -6,15 +6,15 @@ import { addCartItem } from "../../Redux/Cart/cart-actions";
 import Button from "../../Components/Button/Button.component";
 import ItemSize from "../../Components/ItemSize/ItemSize.component";
 import { selectCurrentUser } from "../../Redux/User/user.selector";
-import { ItemContainer, ProductName, ProductInfoContainer, ProductPrice, Product, AddItemFail } from './ItemPage.styles.jsx';
+import { ItemContainer, ProductName, ProductImage, ProductInfoContainer, ProductPrice, Product } from './ItemPage.styles.jsx';
 
 const ItemPage = () =>
 {
     const { collectionId, itemId } = useParams();
     const  item  = useSelector((state) => getItem(collectionId, Number(itemId))(state));
-    console.log('item : ', item);
+
     const   currentUser  = useSelector((state) => selectCurrentUser(state));
-    console.log('User  : ', currentUser);
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -36,12 +36,13 @@ const ItemPage = () =>
         :
             history.push('/signin'); 
     }
-
+    console.log('Image Url ', imageUrl);
     return(
+        
         <ItemContainer>
             <Product>
-                <img src={imageUrl} alt=''/>
-                <span className='name'>{name}</span>
+                <ProductImage imageUrl={imageUrl}/>
+                <ProductName>{name}</ProductName>
             </Product>
 
             <ProductInfoContainer>
