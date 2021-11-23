@@ -10,15 +10,28 @@ export const TitleContainer = styled.h2`
     }
 `;
 
-
+export const ArrowContainer = styled.div`
+        width : 100%;
+        height : 20px;
+        display : flex;
+        flex-direction: row;
+        justify-content : space-between;
+        margin-top: 10px;
+        opacity : 0%;
+`;
 export const PreviewContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
+
+    @media screen and (max-width: 800px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15px;
+      }
 `;
 
 const ArrowCSS = css `
-    opacity: 0%;
+
     &:hover {
         cursor: pointer;
     }
@@ -36,7 +49,11 @@ export const CollectionPreviewContainer = styled.div`
     flex-direction: column;
     margin-bottom: 30px;
 
-    &:hover ${LeftArrowContainer},${RightArrowContainer} {
+    &:hover ${ArrowContainer}{
         opacity: 100%;
     }
+
+    @media screen and (max-width: 800px) {
+        align-items: center;
+      }
 `;

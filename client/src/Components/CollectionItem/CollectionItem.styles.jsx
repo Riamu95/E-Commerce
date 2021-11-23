@@ -12,6 +12,13 @@ export const ViewItemButton = styled(Button)`
         opacity: 0.85;
         display: flex;
     }
+
+    @media screen and (max-width: 800px) {
+        display: block;
+        opacity: 0.9;
+        min-width: unset;
+        padding: 0 10px;
+      }
 `;
 
 export const CollectionImage = styled.div`
@@ -29,6 +36,7 @@ export const CollectionImage = styled.div`
 
 
 export const CollectionItemContainer = styled.div`
+    
     width: 22vw;
     display: flex;
     flex-direction: column;
@@ -48,6 +56,20 @@ export const CollectionItemContainer = styled.div`
          }
     }
 
+    @media screen and ( max-width : 800px){
+        width : 40vw;
+        &:hover
+         { 
+            ${ViewItemButton} {
+                opacity: unset;
+
+            }
+
+            ${CollectionImage} {
+                opacity: unset;
+            }
+        }
+    }
 `;
 
 export const CollectioFooterContainer = styled.div`

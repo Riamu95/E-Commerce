@@ -5,7 +5,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import {selectCollectionItems} from '../../Redux/Shop/shop.selector';
 import { ReactComponent as LeftArrowLogo} from '../../Assets/leftArrow.svg';
 import { ReactComponent as RightArrowLogo} from '../../Assets/rightArrow.svg';
-import { CollectionPreviewContainer, TitleContainer , PreviewContainer, LeftArrowContainer, RightArrowContainer} from './Collection-Preview.styles';
+import { CollectionPreviewContainer, TitleContainer , PreviewContainer, LeftArrowContainer, RightArrowContainer, ArrowContainer} from './Collection-Preview.styles';
 export  { LeftArrowLogo, RightArrowLogo };
 
 const ColllectionPreview = ({collectionCategory}) => 
@@ -48,15 +48,19 @@ const ColllectionPreview = ({collectionCategory}) =>
         <CollectionPreviewContainer> 
             <TitleContainer  onClick={ () => history.push(`${match.url}/${title}`)}> {title.toUpperCase()}</TitleContainer>
             <PreviewContainer>
-                <LeftArrowContainer onClick={() => onArrowClick('left')}/>
+               
                {                                          //render only the indexs we have chosen max of 4
                     shopItems.items.filter((item, idx) => (idx >= index.startIndex && idx <= index.endIndex) )
                     .map((item) => (
                         <CollectionItem key={item.id} {...item} /> 
                     ))
                 }
-                <RightArrowContainer onClick={() => onArrowClick('right')}/>
+                
             </PreviewContainer>
+            <ArrowContainer>
+                <LeftArrowContainer onClick={() => onArrowClick('left')}/>
+                <RightArrowContainer onClick={() => onArrowClick('right')}/>
+            </ArrowContainer>
         </CollectionPreviewContainer>
     );
 
