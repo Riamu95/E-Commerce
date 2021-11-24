@@ -1,12 +1,12 @@
 import React, { useState} from 'react';
-import './SignIn.style.scss';
+import {SignInContainer , Title, ButtonContainer} from './SignIn.styles.jsx';
 import FormInput from '../FormInput/FormInput.component';
 import CustomButton from "../Button/Button.component";
 import { GoogleStartSignIn, EmailStartSignIn } from '../../Redux/User/user-actions';
 import { useDispatch } from 'react-redux';
 
 
-const SignIn = ({ width }) => {
+const SignIn = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -19,7 +19,7 @@ const SignIn = ({ width }) => {
     };
 
     return(
-        <div className="sign-in">
+       <SignInContainer>
             <h2>I Already have an account</h2>
             <span>Sign in with your email and password</span>
 
@@ -42,12 +42,12 @@ const SignIn = ({ width }) => {
                     onChange={(event) => setPassword(event.target.value)} 
                     reqiured 
                 />
-                <div className="buttons">
+                <ButtonContainer>
                     <CustomButton children ='Sign In' type="submit" isGoogleSignIn={null} onClick={ handleSubmit }/>
                     <CustomButton type='button' children ='Sign In With Google' isGoogleSignIn={true} onClick={() => dispatch(GoogleStartSignIn()) }/>
-                    </div>
+                </ButtonContainer>
             </form>
-        </div>
+        </SignInContainer>
     );
 }
 

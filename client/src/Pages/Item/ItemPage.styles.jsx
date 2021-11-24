@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const ProductImage = styled.div`
     width: 100%;
-    height: 95%;
-    background-image : url(${props =>  props.imageUrl});
+    height: 100%;
     background-size: cover;
     background-position: center;
+    background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `;
 
 export const ItemContainer = styled.div`
@@ -20,7 +20,8 @@ export const Product = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100px;
+    width: 50%;
+    height: 100%;
 
     @media screen and ( max-width : 800px)
     {
@@ -40,7 +41,6 @@ export const ProductName = styled.span`
 
 
 export const ProductInfoContainer = styled.div`
-    margin-left: 5%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

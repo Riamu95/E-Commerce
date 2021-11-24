@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter, useHistory, useRouteMatch } from 'react-router';
-import { ViewItemButton, CollectionItemContainer, CollectionImage, CollectioFooterContainer, ItemName, ItemPrice } from './CollectionItem.styles.jsx';
+import { ViewItemButton, CollectionItemContainer, CollectionImage, CollectionFooterContainer, ItemName, ItemPrice } from './CollectionItem.styles.jsx';
 
 const CollectionItem = ({imageUrl, name,price, category, id}) => 
 {  
@@ -10,10 +10,10 @@ const CollectionItem = ({imageUrl, name,price, category, id}) =>
     return( 
         <CollectionItemContainer>
         <CollectionImage  imageUrl={imageUrl}/>
-           <CollectioFooterContainer>
+           <CollectionFooterContainer>
             <ItemName>{name}</ItemName>
                 <ItemPrice>${price}</ItemPrice>
-            </CollectioFooterContainer>
+            </CollectionFooterContainer>
             <ViewItemButton onClick= {() =>  match.params?.collectionId ? history.push(`${match.url}/${id}`) :  history.push(`${match.url}/${category}/${id}`)} inverted > View Item </ViewItemButton>     
         </CollectionItemContainer>
     );

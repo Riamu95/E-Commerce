@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './SignUp.style.scss';
+import { SignUpContainer, Title } from './SignUp.styles.jsx';
 import FormInput from '../FormInput/FormInput.component';
 import Button from '../Button/Button.component';
 import { UserSignUpStart } from '../../Redux/User/user-actions';
@@ -27,8 +27,8 @@ const SignUp = ({onUserSignUp}) => {
     };
 
     return(
-            <div className="sign-up">
-            <h2 className='title'>Don't have an account?</h2>
+        <SignUpContainer>
+            <Title>Don't have an account?</Title>
             <span>Sign up with your name, email and password</span>
             <form onSubmit={handleSubmit}>
                 <FormInput 
@@ -68,7 +68,7 @@ const SignUp = ({onUserSignUp}) => {
 
                 <Button children="Sign Up" type="submit" className={"custom-button"}/>
             </form>
-            </div>
+            </SignUpContainer>
     );
 };
 

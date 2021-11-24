@@ -72,20 +72,25 @@ export const CollectionItemContainer = styled.div`
     }
 `;
 
-export const CollectioFooterContainer = styled.div`
+export const CollectionFooterContainer = styled.div`
     width: 100%;
     height: 5%;
     display: flex;
     justify-content: space-between;
     font-size: 18px; 
+
+    @media screen and( max-width: 800px)
+    {
+        font-size: 5px;
+    }
 `;
 
 
 export const ItemName = styled.span`
-        width: 90%;   
+        width: 80%;   
         margin-bottom: 15px;
 `;
 
 export const ItemPrice = styled.span`
-        width: 10%;
+        width: 20%;
 `;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useEffect ,useState} from  'react';
 import { SignInAndSignUpContainer } from './SignInAndSignUp.styles';
 import SignIn from '../../Components/SignIn/SignIn.component';
 import SignUp from '../../Components/SignUp/SignUp.component';
@@ -11,17 +11,29 @@ const SignInAndSignUp = () =>
     const history = useHistory();
 
     const { innerWidth: width} = window;
+    const [ size, setSize] = useState(window.innerWidth);
+    const [ mobile, setmobile] = useState(false);
 
     const onClick = () => 
     {
         history.push('/signup');
     };
 
+    useEffect(() => {
+        if(size < 800)
+        {
+            setSize(window.innerWidth);
+            setmobile(true);
+            console.log(' Mobile');
+        }
+            
+    }, [size]);
+
     return(
-           <SignInAndSignUpContainer width={width}>
-                <SignIn/>
+           <SignInAndSignUpContainer className="SignInAndSignUp" width={width}>
+                <SignIn className="SignIn"/>
               {
-                  width < 800 ? <Button onClick={() => onClick()}>Sign up here </Button> :  <SignUp/>
+                  mobile ?  <Button onClick={() => onClick()}> Sign up here </Button> :  <SignUp className="SignUp"/>
               } 
             </SignInAndSignUpContainer>
     );

@@ -35,13 +35,13 @@ const ItemPage = () =>
            dispatch(addCartItem({ id : id, name : name,  imageUrl : imageUrl, price : price, size : size}))
         :
             history.push('/signin'); 
-    }
-    console.log('Image Url ', imageUrl);
+    };
+
     return(
         
         <ItemContainer>
             <Product>
-                <ProductImage imageUrl={imageUrl}/>
+                <ProductImage className='background-image' imageUrl={imageUrl}></ProductImage>
                 <ProductName>{name}</ProductName>
             </Product>
 
