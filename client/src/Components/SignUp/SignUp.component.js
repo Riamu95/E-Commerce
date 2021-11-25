@@ -66,7 +66,7 @@ const SignUp = ({onUserSignUp}) => {
                     required
                     />
 
-                <Button children="Sign Up" type="submit" className={"custom-button"}/>
+                <Button width={100} children="Sign Up" type="submit" className={"custom-button"}/>
             </form>
             </SignUpContainer>
     );

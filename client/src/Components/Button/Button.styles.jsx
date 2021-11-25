@@ -1,6 +1,7 @@
 import styled, {css} from "styled-components";
 
 const buttonStyles =css`
+
     background-color: black;
     color: white;
     border: none;
@@ -47,7 +48,7 @@ const getButtonStyles = props => {
 
 export const ButtonContainer = styled.button`
 
-  
+    width : ${({width}) => (`${width}%`)};
     height: 50px;
     letter-spacing: 0.5px;
     line-height: 50px;
@@ -62,5 +63,13 @@ export const ButtonContainer = styled.button`
     display: flex;
     justify-content: center;
 
+   
+
     ${getButtonStyles}
+
+    
+    @media screen and ( max-width: 800px ) {
+        font-size: 12px;
+        padding : 0 10px 0 10px; 
+    }
 `;

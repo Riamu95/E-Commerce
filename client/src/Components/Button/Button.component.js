@@ -1,10 +1,10 @@
 import React from 'react';
 import { ButtonContainer } from './Button.styles';
 
-const Button = ({children, ...props}) => 
+const Button = ({children,width, ...props}) => 
 {
     return (
-            <ButtonContainer   {...props}> { children } </ButtonContainer>
+            <ButtonContainer width={width} {...props}> { children } </ButtonContainer>
     );
 }
 
