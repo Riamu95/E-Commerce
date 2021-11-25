@@ -3,10 +3,9 @@ import styled from 'styled-components';
 
 export const MenuItemContainer = styled.div`
 
-    height: ${({ size }) => (size ? '380px' : '240px')};
+    height: ${({ size }) => ( size === 'large' ? '55%' : '35%')};
     min-width: 30%;
     overflow: hidden;
-    height: 240px;
     flex: 1 1 auto;
     display: flex;
     align-items: center;
@@ -51,6 +50,10 @@ export const MenuItemContainer = styled.div`
           height: 200px;
       }
 
+      @media screen and (max-width : 800px) {
+        height : 325px;
+      }
+
 `;
 
 
@@ -80,6 +83,10 @@ export const ContentTitle = styled.span`
   margin-bottom: 6px;
   font-size: 22px;
   color: #4a4a4a;
+
+  @media screen and (max-width: 800px) {
+    font-size : 18px;
+  }
 `;
 
 export const ContentSubtitle = styled.span`
