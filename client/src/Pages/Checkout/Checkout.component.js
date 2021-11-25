@@ -3,48 +3,48 @@ import { connect } from 'react-redux';
 import { selectCartItems, selectCartPrice } from '../../Redux/Cart/cart.selectors';
 import CheckoutItem from '../../Components/Checkout-Item/Checkout-Item.component';
 import StripeButton from '../../Components/StripeButton/StripeButton.component'
-import '../Checkout/Checkout.styles.scss';
+import { TotalContainer, CheckoutPageContainer, ButtonContainer, Test, CheckoutHeaderContainer, HeaderBlockContainer } from './CheckoutPage.styles.jsx';
 
 
 const CheckoutPage = ({items, cartPrice}) => 
 {
   return(
-            <div className='checkout-page'>
-                <div className='checkout-header'>
-                    <div className='checkout-block'>
+           <CheckoutPageContainer className='checkout-page'>
+               <CheckoutHeaderContainer className='checkout-header'>
+                    <HeaderBlockContainer className='checkout-block'>
                         <span> Product </span>
-                    </div>
-                    <div className='checkout-block'>
+                    </HeaderBlockContainer>
+                    <HeaderBlockContainer className='checkout-block'>
                         <span> Description </span>
-                    </div>
-                    <div className='checkout-block'>
+                    </HeaderBlockContainer>
+                    <HeaderBlockContainer className='checkout-block'>
                         <span> Size </span>
-                    </div>
-                    <div className='checkout-block'>
+                    </HeaderBlockContainer>
+                    <HeaderBlockContainer className='checkout-block'>
                         <span> Quantity </span>
-                    </div>
-                    <div className='checkout-block'>
+                    </HeaderBlockContainer>
+                    <HeaderBlockContainer className='checkout-block'>
                         <span> Price </span>
-                    </div>
-                    <div className='checkout-block'>
+                    </HeaderBlockContainer>
+                    <HeaderBlockContainer className='checkout-block'>
                         <span> Remove </span>
-                    </div>
-                </div>
+                    </HeaderBlockContainer>
+                </CheckoutHeaderContainer>
                 {
                      items.map( item => <CheckoutItem key={item.id} item={item}/>)
                 }
-                <div className='total'>
+                <TotalContainer className='TotalContainer'>
                     <span>Total : ${cartPrice}</span>
-                </div>
-                <div className='test'>
+                </TotalContainer>
+                <Test className='test'>
                     *Please use the following test card details for payments*
                     <br/>
                     Card Number : 4242 4242 4242 4242 EXP : 02/27 CVC : 123
-                </div>
-                <div className='button'>
+                </Test>
+                <ButtonContainer className='button'>
                     <StripeButton price={cartPrice}/>
-                </div>
-            </div>
+                </ButtonContainer>
+            </CheckoutPageContainer>
         );
 
 };

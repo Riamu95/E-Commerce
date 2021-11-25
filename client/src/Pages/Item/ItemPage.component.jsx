@@ -6,7 +6,7 @@ import { addCartItem } from "../../Redux/Cart/cart-actions";
 import Button from "../../Components/Button/Button.component";
 import ItemSize from "../../Components/ItemSize/ItemSize.component";
 import { selectCurrentUser } from "../../Redux/User/user.selector";
-import { ItemContainer, ProductName, ProductImage, ProductInfoContainer, ProductPrice, Product } from './ItemPage.styles.jsx';
+import { ItemContainer, ProductForm ,ProductName, ProductImage, ProductPrice } from './ItemPage.styles.jsx';
 
 const ItemPage = () =>
 {
@@ -37,20 +37,23 @@ const ItemPage = () =>
             history.push('/signin'); 
     };
 
+    const handleSubmit = async event =>
+    {   
+        event.preventDefault();
+        addItem();
+    };
+
     return(
         
         <ItemContainer>
-            <Product>
-                <ProductImage className='background-image' imageUrl={imageUrl}></ProductImage>
-                <ProductName>{name}</ProductName>
-            </Product>
+            <ProductImage className='background-image' imageUrl={imageUrl}></ProductImage>
 
-            <ProductInfoContainer>
-            <ItemSize onChange={onSizeChange} />
-            <span className='Quantity'>Quantity : </span>
+            <ProductForm onSubmit={handleSubmit}>
+            <ProductName>{` Product :  ${name}`}</ProductName>
+                <ItemSize onChange={onSizeChange} />
                 <ProductPrice>Price : ${price}</ProductPrice>
-                <Button onClick={() => addItem() } inverted > Add Item </Button>
-            </ProductInfoContainer>
+                <Button type ="submit" onCLick={handleSubmit} inverted > Add Item </Button>
+            </ProductForm>
         </ItemContainer>
     );
 };

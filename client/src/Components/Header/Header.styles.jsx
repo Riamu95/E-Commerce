@@ -7,6 +7,7 @@ export const HeaderContainer = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
+    background-color : #D3D3D3;
 
     @media screen and ( max-width : 800px)
     {
@@ -34,7 +35,7 @@ export const Options = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
+    font-size : 12px;
     @media screen and (max-width : 800px)
     {
        width: 80%;

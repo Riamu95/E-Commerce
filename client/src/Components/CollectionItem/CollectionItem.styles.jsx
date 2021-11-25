@@ -24,7 +24,7 @@ export const ViewItemButton = styled(Button)`
 export const CollectionImage = styled.div`
         background-image : url(${props => props.imageUrl});
         width: 100%;
-        height: 95%;
+        height: 100%;
         background-size: cover;
         background-position: center;
         margin-bottom: 5%;
@@ -76,21 +76,25 @@ export const CollectionFooterContainer = styled.div`
     width: 100%;
     height: 5%;
     display: flex;
-    justify-content: space-between;
-    font-size: 18px; 
-
-    @media screen and( max-width: 800px)
-    {
-        font-size: 5px;
-    }
+    justify-content: space-between; 
 `;
 
 
 export const ItemName = styled.span`
         width: 80%;   
         margin-bottom: 15px;
+
+        @media screen and (max-width: 800px)
+        {
+            font-size: 3vw;
+        }
 `;
 
 export const ItemPrice = styled.span`
         width: 20%;
+        
+        @media screen and (max-width: 800px)
+        {
+            font-size: 4vw;
+        }
 `;
