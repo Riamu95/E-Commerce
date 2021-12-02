@@ -14,7 +14,7 @@ const CollectionItem = ({imageUrl, name,price, category, id}) =>
             <ItemName>{name}</ItemName>
                 <ItemPrice>${price}</ItemPrice>
             </CollectionFooterContainer>
-            <ViewItemButton onClick= {() =>  match.params?.collectionId ? history.push(`${match.url}/${id}`) :  history.push(`${match.url}/${category}/${id}`)} inverted > View Item </ViewItemButton>     
+            <ViewItemButton width={50} onClick= {() =>  match.params?.collectionId ? history.push(`${match.url}/${id}`) :  history.push(`${match.url}/${category}/${id}`)} inverted > View Item </ViewItemButton>     
         </CollectionItemContainer>
     );
 }

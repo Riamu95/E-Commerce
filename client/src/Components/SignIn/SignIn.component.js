@@ -43,8 +43,8 @@ const SignIn = () => {
                     reqiured 
                 />
                 <ButtonContainer>
-                    <CustomButton width={30}children ='Sign In' type="submit" isGoogleSignIn={null} onClick={ handleSubmit }/>
-                    <CustomButton width={70} type='button' children ='Sign In With Google' isGoogleSignIn={true} onClick={() => dispatch(GoogleStartSignIn()) }/>
+                    <CustomButton width={35}children ='Sign In' type="submit" isGoogleSignIn={null} onClick={ handleSubmit }/>
+                    <CustomButton width={65} type='button' children ='Sign In With Google' isGoogleSignIn={true} onClick={() => dispatch(GoogleStartSignIn()) }/>
                 </ButtonContainer>
             </form>
         </SignInContainer>
